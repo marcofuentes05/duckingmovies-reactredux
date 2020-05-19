@@ -37,9 +37,10 @@ Esta app fué creada usando
 ```bash
 expo init
 ```
- Por tanto, una vez clonado este repositorio, navegar hacia la carpeta de la aplicacion y ejecutar ``` yarn start ```
+ Por tanto, una vez clonado este repositorio, navegar hacia la carpeta de la aplicacion y ejecutar:
  ```bash
   cd duckingmovies-reactredux/Ducking-Movies
+  yarn install
   yarn start
  ```
  En el iphone, abrir la cámara, escanear el código QR que se muestra en la consola y abrirlo con Expo mostrará la aplicación funcionando.
