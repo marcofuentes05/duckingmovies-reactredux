@@ -3,6 +3,10 @@
 <h5>Desarrollado por Marco Fuentes y Andy Castillo, utilizando React Native</h5>
 
 ## Creación del proyecto
+
+Para informacin de prerequisistos leer [aquí](http://reactnative.dev/docs/environment-setup) y seleccionar la opción de `React Native CLI Quickstart`
+
+
 ```bash
  # Creacion de proyecto de React Native
  # En el directorio en el que se desea crear el proyecto
