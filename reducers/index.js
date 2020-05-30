@@ -1,4 +1,5 @@
 import { combineReducers } from 'redux';
+import { reducer as formReducer } from 'redux-form'
 
 import auth, * as authSelectors from './auth';
 import signUp, * as signUpSelectors from './signUp';
@@ -28,6 +29,7 @@ const reducer = combineReducers({
   movieProducers,
   comments,
   genres,
+  formReducer,
 });
 
 export default reducer;

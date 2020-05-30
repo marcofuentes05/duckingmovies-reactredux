@@ -1,7 +1,7 @@
 import {combineReducers} from 'redux';
 import omit from 'lodash/omit';
 
-import * as types from './types/actors';
+import * as types from '../types/actors';
 
 const byId = (state = {} , action) => {
     switch(action.type){
@@ -20,7 +20,7 @@ const byId = (state = {} , action) => {
             const newState = {...state};
             newState[action.payload.id] = {
                 ...action.payload,
-                isConfirmed = true
+                isConfirmed : true
             }
             return newState;
         }
@@ -70,13 +70,13 @@ const order = (state = [] , action) => {
 
 const isFetching = (state = false , action) => {
     switch (action.type) {
-        case FETCH_ACTOR_STARTED : {
+        case types.FETCH_ACTORS_STARTED : {
             return true
         }
-        case FETCH_ACTOR_COMPLETED : {
+        case types.FETCH_ACTORS_COMPLETED : {
             return false
         }
-        case FETCH_ACTOR_FAILED : {
+        case types.FETCH_ACTORS_FAILED : {
             return false
         }
         default : {
@@ -87,16 +87,16 @@ const isFetching = (state = false , action) => {
 
 const error = (state = null , action) => {
     switch (action.type){
-        case FETCH_ACTORS_STARTED : 
-        case FETCH_ACTORS_COMPLETED : 
-        case ADD_ACTORS_STARTED : 
-        case ADD_ACTORS_COMPLETED : 
-        case REMOVE_ACTORS_STARTED : 
-        case REMOVE_ACTORS_COMPLETED : 
+        case types.FETCH_ACTORS_STARTED : 
+        case types.FETCH_ACTORS_COMPLETED : 
+        case types.ADD_ACTORS_STARTED : 
+        case types.ADD_ACTORS_COMPLETED : 
+        case types.REMOVE_ACTORS_STARTED : 
+        case types.REMOVE_ACTORS_COMPLETED : 
             return null;
-        case FETCH_ACTORS_FAILED : 
-        case ADD_ACTORS_FAILED : 
-        case REMOVE_ACTORS_FAILED : 
+        case types.FETCH_ACTORS_FAILED : 
+        case types.ADD_ACTORS_FAILED : 
+        case types.REMOVE_ACTORS_FAILED : 
             return action.payload.error;
         default : {
             return state;

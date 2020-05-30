@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux';
 import omit from 'lodash/omit';
 
-import * as types from './types/directors';
+import * as types from '../types/directors';
 
 const byId = (state={}, action) => {
   switch (action.type) {
