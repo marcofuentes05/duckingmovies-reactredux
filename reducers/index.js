@@ -16,6 +16,7 @@ import comments, * as commentsSelectors from './comments';
 import genres, * as genresSelectors from './genres';
 
 const reducer = combineReducers({
+  form : formReducer,
   auth,
   signUp,
   movies,
@@ -26,10 +27,9 @@ const reducer = combineReducers({
   directors,
   actors,
   awards,
-  movieProducers,
   comments,
   genres,
-  formReducer,
+  movieProducers,
 });
 
 export default reducer;
