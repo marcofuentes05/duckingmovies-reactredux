@@ -30,12 +30,14 @@ function* login (action) {
         if(response.status == 200){
             const { token } = yield  response.json();
             yield put(actions.completeLogin(token))
+            console.log('Todo bien :D ')
         } else if (response.status == 400){
             console.log('Tus credenciales no son correctas mano :(')    
         } 
         else {
             const non_field_errors = yield response.text();
             yield put(actions.failLogin(non_field_errors[0]))
+            console.log(non_field_errors[0])
         }
     }catch(error){
         console.log(API_BASE_AUTH ,'Fallo la conexion mano' , error)

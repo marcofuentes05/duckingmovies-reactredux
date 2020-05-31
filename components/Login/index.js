@@ -1,47 +1,77 @@
-import React from 'react'
+import React , { useEffect } from 'react'
 import { connect } from 'react-redux'
-import { Field, reduxForm } from 'redux-form'
+import { Field, reduxForm , reset } from 'redux-form'
 import {
     StyleSheet,
     Text,
     TextInput,
     TouchableOpacity,
-    View
+    View, 
+    Alert
 } from 'react-native';
 import * as actions from './../../actions/auth';
-
-// const submit = (values , algo )=> {
-//     console.log('submitting form', values)
-//     console.log(algo)
-// }
+import * as selectors from './../../reducers'
 
 const renderInput = ({ input: { onChange, ...restInput } }) => {
-    return <TextInput style={styles.input} onChangeText={onChange} {...restInput} />
+    return <TextInput style={styles.input} placeHolder = 'Usuario' textContentType = 'username' onChangeText={onChange} {...restInput} />
+}
+const renderInputP = ({ input: { onChange, ...restInput } }) => {
+    return <TextInput style={styles.input} placeHolder='Contraseña' secureTextEntry = {true} textContentType = 'password' onChangeText={onChange} {...restInput} />
 }
 
 const Form = ( props ) => {
-    const { handleSubmit } = props
+    const { error, handleSubmit, pristine, reset, submitting } = props
     return (
-        <View style={styles.container}>
-            <Text h1>LOGIN</Text>
-            <Text>Username:</Text>
-            <Field name="username" component={renderInput} />
-            <Text>Password:</Text>
-            <Field name="password" component={renderInput} />
+        <>
+            <Text style={styles.title}>LOGIN</Text>
+            <View>
+                <Text >Username:</Text>
+                <Field name="username" placeholder = 'Usuario' component={renderInput} />
+            </View>
+            <View>
+                <Text>Password:</Text>
+                <Field name="password" component={renderInputP} />
+            </View>
             <TouchableOpacity onPress={handleSubmit}>
                 <Text style={styles.button}>Login</Text>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={reset}>
+                <Text style={styles.button}>Clear Fields</Text>
+            </TouchableOpacity>
+        </>
+    )
+}
+
+const LoginForm =reduxForm({
+    form : 'login',
+    onSubmit( {password, username} , dispatch ) {
+        dispatch(actions.startLogin(username, password))
+        console.log('hola')
+    }
+})(Form)
+
+const LoginVista = ({ isAuth , navigation }) => {
+    if (isAuth) {
+        navigation.navigate('MainPage')
+    }
+    return(
+        <View style = {styles.container}>
+            <LoginForm style={styles.container}/>
+            <TouchableOpacity onPress={() => navigation.navigate('Home')}>
+                <Text style={styles.button}>Back Home</Text>
             </TouchableOpacity>
         </View>
     )
 }
 
-export default reduxForm({
-    form: 'login',
-    onSubmit({password , username} , dispatch){
-        // console.log('DISPATCHHH', password , username)
-        dispatch(actions.startLogin(username, password))
-    }
-})(Form)
+const LoginVistaSmart = connect(
+    state => ({
+        isAuth : selectors.isAuthenticated(state)
+    }),
+    dispatch => ({})
+)(LoginVista)
+
+export default LoginVistaSmart;
 
 const styles = StyleSheet.create({
     button: {
@@ -56,7 +86,10 @@ const styles = StyleSheet.create({
         borderRadius: 5
     },
     container: {
-
+        flex: 1,
+        flexDirection: 'column',
+        justifyContent: 'space-between',
+        alignItems : 'center'
     },
     input: {
         borderColor: 'black',
@@ -65,5 +98,10 @@ const styles = StyleSheet.create({
         width: 250,
         margin : 10,
         borderRadius : 50
+    },
+    title : {
+        color : 'blue',
+        fontWeight : 'bold', 
+        fontSize : 30
     }
 })
