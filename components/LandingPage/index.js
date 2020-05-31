@@ -19,7 +19,7 @@ const Buttons = ({ isAuthenticated , navigation} ) => {
             <TouchableOpacity onPress={() => navigation.navigate('Login')}>
                 <Text style={styles.button}>Login</Text>
             </TouchableOpacity>
-            <TouchableOpacity onPress={() => console.log('Sign In redirect') /*TODO*/}>
+            <TouchableOpacity onPress={() => navigation.navigate('Registro') /*TODO*/}>
                 <Text style={styles.button}>Sign In</Text>
             </TouchableOpacity>
         </View>

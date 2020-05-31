@@ -11,6 +11,8 @@ import { Provider } from 'react-redux'
 import Login from './components/Login'
 import Buttons from './components/LandingPage'
 import MainPage from './components/MainPage'
+import SignUp from './components/SignUp';
+
 const store = configureState()
 
 const Stack = createStackNavigator();
@@ -23,6 +25,7 @@ export default function App() {
                 <Stack.Screen name = 'Home' component = {Buttons}/>
                 <Stack.Screen name='Login' component= {Login} />
                 <Stack.Screen name='MainPage' component={MainPage} />
+                <Stack.Screen name='Registro' component={SignUp} />
             </Stack.Navigator>
         </NavigationContainer>
     </Provider>
