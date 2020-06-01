@@ -13,7 +13,7 @@ import * as actions from './../../actions/auth';
 import * as selectors from './../../reducers'
 
 const Buttons = ({ isAuthenticated , navigation} ) => {
-        
+    isAuthenticated && navigation.navigate('MainPage')
     return (
         <View style = {styles.container}>
             <TouchableOpacity onPress={() => navigation.navigate('Login')}>

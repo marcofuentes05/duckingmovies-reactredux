@@ -1,4 +1,4 @@
-import * as types from './types/movies';
+import * as types from './../types/movies';
 
 export const startFetchingMovies = () => ({
   type: types.FETCH_MOVIES_STARTED,

@@ -1,7 +1,7 @@
-import * as types from './types/series';
+import * as types from './../types/series';
 
 export const startFetchingSeries = () => ({
-  type: types.FETCH_SERIE_STARTED,
+  type: types.FETCH_SERIES_STARTED,
 });
 export const completeFetchingSeries = (entities, order) => ({
   type: types.FETCH_SERIES_COMPLETED,

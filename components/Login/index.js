@@ -53,6 +53,10 @@ const LoginForm =reduxForm({
 const LoginVista = ({ isAuth , navigation }) => {
     if (isAuth) {
         navigation.navigate('MainPage')
+        navigation.reset({
+            index: 0,
+            routes: [{ name: 'MainPage' }],
+        });
     }
     return(
         <View style = {styles.container}>

@@ -1,4 +1,4 @@
-import * as types from './types/videogames';
+import * as types from '../types/videogames';
 
 export const startFetchingVideogames = () => ({
   type: types.FETCH_VIDEOGAMES_STARTED,

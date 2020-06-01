@@ -8,6 +8,7 @@ const byId = (state={}, action) => {
     case types.FETCH_SERIES_COMPLETED: {
       const newState = { ...state };
       const { entities, order } = action.payload;
+      console.log('\nENTITIES\n', entities)
       order.forEach(id =>{
         newState[id] = {
           ...entities[id],
