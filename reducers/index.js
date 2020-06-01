@@ -106,11 +106,23 @@ export const getMovieProducers = state => movieProducersSelectors.getMovieProduc
 export const isFetchingMovieProducers = state => movieProducersSelectors.isFetchingMovieProducers(state.movieProducers);
 export const getMovieProducerError = state => movieProducersSelectors.getMovieProducerError(state.movieProducers);
 
-// comments selectors 
-export const getComment = (state , id) => commentsSelectors.getComment(state.comments , id);
-export const getComments = state => commentsSelectors.getComments(state.comments);
-export const isFetchingComments = state => commentsSelectors.isFetchingComments(state.comments);
-export const getCommentError = state => commentsSelectors.getCommentError(state.comments);
+// movies comments selectors 
+export const getMovieComment = (state , id) => commentsSelectors.getMovieComment(state.comments , id);
+export const getMovieComments = state => commentsSelectors.getMovieComments(state.comments);
+export const isFetchingMovieComments = state => commentsSelectors.isFetchingMovieComments(state.comments);
+export const getCommentError = state => commentsSelectors.getMovieCommentError(state.comments);
+
+// series comments selectors
+export const getSerieComment = (state, id) => commentsSelectors.getSerieComment(state.comments, id);
+export const getSerieComments = state => commentsSelectors.getSerieComments(state.comments);
+export const isFetchingSerieComments = state => commentsSelectors.isFetchingSerieComments(state.comments);
+export const getSerieCommentError = state => commentsSelectors.getSerieCommentError(state.comments);
+
+// videogames comments selectors
+export const getGameComment = (state, id) => commentsSelectors.getGameComment(state.comments, id);
+export const getGameComments = state => commentsSelectors.getGameComments(state.comments);
+export const isFetchingGameComments = state => commentsSelectors.isFetchingGameComments(state.comments);
+export const getGameCommentError = state => commentsSelectors.getGameCommentError(state.comments);
 
 // genres selectors
 export const getGenre = (state , id) => genresSelectors.getGenre(state.genres , id);

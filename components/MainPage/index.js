@@ -35,8 +35,10 @@ const mainPage = ({ isAuth , username , navigation }) => {
     return (
         <SafeAreaView style = {styles.containerU}>
             <ScrollView  style = {{backgroundColor : 'black'}}>
-                <Text style={styles.username}>{`¡Bienvenido, ${username}!`}</Text>
-                <Emoji name = 'duck' />
+                <Text>
+                    <Text style={styles.username}>{`¡Bienvenido, ${username}!\t`}</Text>
+                    <Emoji name = 'duck'  style = {styles.username}/>
+                </Text>
                 <Carrousel />
                 <SeriesCarrier navigation = {navigation}/>
                 <MoviesCarrier navigation={navigation}/>

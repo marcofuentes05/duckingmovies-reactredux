@@ -1,117 +1,25 @@
-import { combineReducers } from 'redux';
-import omit from 'lodash/omit';
-
+import { combineReducers } from "redux"
 import * as types from '../types/comments';
-
-const byId = (state = {}, action) => {
-    switch (action.type) {
-        case types.FETCH_COMMENTS_COMPLETED: {
-            const newState = { ...state };
-            const { entities, order } = action.payload;
-            order.forEach(id => {
-                newState[id] = {
-                    ...entities[id],
-                    isConfirmed: true,
-                }
-            });
-            return newState;
-        }
-        case types.ADD_COMMENT_STARTED: {
-            const newState = { ...state };
-            newState[action.payload.id] = {
-                ...action.payload,
-                isConfirmed: false,
-            }
-            return newState;
-        }
-        case types.ADD_COMMENT_COMPLETED: {
-            const { tempId, comment } = action.payload;
-            const newState = omit(state, tempId);
-            newState[comment.id] = {
-                ...comment,
-                isConfirmed: true,
-            }
-            return newState;
-        }
-        case types.REMOVE_COMMENT_STARTED: {
-            return omit(state, action.payload.id);
-        }
-        default: {
-            return state;
-        }
-    }
-};
-
-const order = (state = [], action) => {
-    switch (action.type) {
-        case types.FETCH_COMMENTS_COMPLETED: {
-            return [
-                ...action.payload.order,
-            ];
-        }
-        case types.ADD_COMMENT_STARTED: {
-            return [
-                ...state,
-                ...action.payload.id,
-            ];
-        }
-        case types.ADD_COMMENT_COMPLETED: {
-            const { tempId, comment } = action.payload;
-            return state.map(id => id === tempId ? comment.id : id);
-        }
-        case types.REMOVE_COMMENT_STARTED: {
-            return state.filter(id => id !== action.payload.id);
-        }
-        default: {
-            return state;
-        }
-    }
-};
-
-const isFetching = (state = false, action) => {
-    switch (action.type) {
-        case types.FETCH_COMMENTS_STARTED: {
-            return true;
-        }
-        case types.FETCH_COMMENTS_COMPLETED: {
-            return false;
-        }
-        case types.FETCH_COMMENTS_FAILED: {
-            return false;
-        }
-        default: {
-            return state;
-        }
-    }
-};
-
-const error = (state = null, action) => {
-    switch (action.type) {
-        case types.FETCH_COMMENTS_STARTED:
-        case types.FETCH_COMMENTS_COMPLETED:
-        case types.ADD_COMMENT_STARTED:
-        case types.ADD_COMMENT_COMPLETED:
-        case types.REMOVE_COMMENT_STARTED:
-        case types.REMOVE_COMMENT_COMPLETED:
-            return null;
-        case types.FETCH_COMMENTS_FAILED:
-        case types.ADD_COMMENT_FAILED:
-        case types.REMOVE_COMMENT_FAILED:
-            return action.payload.error;
-        default: {
-            return state;
-        }
-    }
-};
-
+import movieComments , * as movieSelectors from './moviecomments'
+import serieComments, * as serieSelectors from './seriecomments'
+import gameComments, * as gameSelectors from './videogamecomments'
 export default combineReducers({
-    byId,
-    order,
-    isFetching,
-    error,
-});
+    movieComments,
+    serieComments,
+    gameComments
+}) 
 
-export const getComment = (state, id) => state.byId[id];
-export const getComments = state => state.order.map(id => getComment(state, id));
-export const isFetchingComments = state => state.isFetching;
-export const getCommentError = state => state.error;
+export const getMovieComment = (state, id) => movieSelectors.getMovieComment(state.movieComments , id );
+export const getMovieComments = state => movieSelectors.getMovieComments(state.movieComments)
+export const isFetchingMovieComments = state => movieSelectors.isFetchingMovieComments(state.movieComments)
+export const getMovieCommentError = state => movieSelectors.getMovieCommentError(state.movieComments)
+
+export const getSerieComment = (state, id) => serieSelectors.getSerieComment(state.serieComments , id );
+export const getSerieComments = state => serieSelectors.getSerieComments(state.serieComments)
+export const isFetchingSerieComment = state => serieSelectors.isFetchingSerieComments(state.serieComments)
+export const getSerieCommentError = state => serieSerieSelectors.getSerieCommentError(state.serieComments)
+
+export const getGameComment = (state, id) => gameSelectors.getGameComment(state.gameComments , id );
+export const getGameComments = state => gameSelectors.getGameComments(state.gameComments)
+export const isFetchingGameComment = state => gameSelectors.isFetchingGameComments(state.gameComments)
+export const getGameCommentError = state => gameSelectors.getGameCommentError(state.gameComments)

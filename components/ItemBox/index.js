@@ -56,12 +56,10 @@ const itemBox = ({item , type , nombre, rating, clasificacion, navigation , chan
                     source={{ uri: 'https://nick-intl.mtvnimages.com/uri/mgid:file:gsp:scenic:/international/nick.co.uk/shows/drake-and-josh/show-cover-drakeandjosh.jpg?quality=0.75&height=0&width=480&matte=true&crop=false'}}
                             style = {styles.card}
                     >
-                    <Text style = {styles.name}>{nombre}</Text>
                     <View style = {styles.textContainer}>
-                        <Text style={styles.infoText}>
-                            <Text style={styles.rating}>{rating + ' ducks'}</Text>
-                            <Text style = {styles.pg}>{clasificacion}</Text>
-                        </Text>
+                        <Text style = {styles.infoText}>{nombre}</Text>
+                        <Text style = {styles.infoText}>{rating}</Text>
+                        <Text style = {styles.infoText}>{clasificacion}</Text>
                     </View>
                 </ImageBackground>
             </TouchableOpacity>
@@ -72,14 +70,13 @@ const itemBox = ({item , type , nombre, rating, clasificacion, navigation , chan
 const styles = StyleSheet.create({
     textContainer: {
         backgroundColor: "rgba(0,0,0, 0.7)",
-        // paddingHorizontal: 24,
-        // paddingVertical: 8,
-        // borderRadius: 5
+        padding : 5,
     },
     infoText: {
         color: "white",
         fontSize: 16,
-        fontWeight: "bold"
+        fontWeight: "bold",
+        textAlign : 'center'
     },
     container :{
         flex : 1 ,
@@ -98,19 +95,19 @@ const styles = StyleSheet.create({
         textAlign : 'center' ,         
         fontSize : 18,
         fontWeight : 'bold',
-        color : 'black'
+        color : 'white'
     },
     rating : {
         textAlign: 'center',
         fontSize: 14,
-        fontWeight: 'bold',
-        color: 'black'  
+        fontWeight: 'normal',
+        color: 'white'  
     },
     pg: {
         textAlign: 'center',
         fontSize: 14,
-        fontWeight: 'bold',
-        color : 'black'
+        fontWeight: 'normal',
+        color : 'white'
     },
     card: {
         flex: 1,
