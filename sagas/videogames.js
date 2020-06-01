@@ -19,7 +19,6 @@ function* getVideogames(action) {
         const isAuth = yield select(selectors.isAuthenticated)
         if (isAuth) {
             const token = yield select(selectors.getToken)
-            console.log('ENTRAMOS A LA SAGA DE VIDEOGAMES', token)
             const response = yield call(
                 fetch,
                 `${API_BASE_URL}/videogames/trending`,
@@ -38,7 +37,6 @@ function* getVideogames(action) {
                     entities: { videogames },
                     result
                 } = normalize(jsonResult, schemas.videogames)
-                console.log('TODO BIEN' , videogames)
                 yield put(actions.completeFetchingVideogames(videogames, result))
             } else if (response.status == 400) {
                 yield put(actions.failFetchingVideogame('No hay token'))

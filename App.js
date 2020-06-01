@@ -13,6 +13,7 @@ import Login from './components/Login'
 import Buttons from './components/LandingPage'
 import MainPage from './components/MainPage'
 import SignUp from './components/SignUp';
+import Detail from './components/ItemDetail'
 
 const { store , persistor } = configureState()
 
@@ -24,10 +25,40 @@ export default function App() {
         <PersistGate loading = {null} persistor = {persistor}>
             <NavigationContainer>
                 <Stack.Navigator initialRouteName = "Home">
-                    <Stack.Screen name='Home' component={Buttons} options={{ title: 'DuckingMovies', headerStyle: { backgroundColor: '#f4511e'} , headerTitleStyle :{fontWeight : 'bold'}  }} />
-                    <Stack.Screen name='Login' component= {Login} />
-                    <Stack.Screen name='MainPage' component={MainPage} options={{ title: 'DuckingMovies', headerLeft : null ,headerStyle: { backgroundColor: '#f4511e' }, headerTitleStyle: { fontWeight: 'bold' } }} />
-                    <Stack.Screen name='Registro' component={SignUp} />
+                    <Stack.Screen name='Home' component={Buttons} 
+                        options={{ 
+                            headerLeft: null,
+                            title: 'DuckingMovies', 
+                            headerStyle: { backgroundColor: '#f4511e'} , 
+                            headerTitleStyle :{fontWeight : 'bold'}  
+                        }} />
+                    <Stack.Screen name='Login' component= {Login} 
+                          options={{
+                              headerLeft : null,
+                              title: 'Login',
+                              headerStyle: { backgroundColor: '#f4511e' },
+                              headerTitleStyle: { fontWeight: 'bold' } 
+                          }} />
+                    <Stack.Screen name='MainPage' component={MainPage} 
+                        options={{ title: 'DuckingMovies', 
+                            headerLeft : null ,
+                            headerStyle: { backgroundColor: '#f4511e' }, 
+                            headerTitleStyle: { fontWeight: 'bold' } 
+                        }} />
+                    <Stack.Screen name='Registro' component={SignUp} 
+                          options={{
+                              headerLeft: null,
+                              title: 'Registro',
+                              headerStyle: { backgroundColor: '#f4511e' },
+                              headerTitleStyle: { fontWeight: 'bold' } 
+                          }}/>
+                    <Stack.Screen name = 'DetailPage' component = {Detail}
+                          options={{
+                              headerLeft: null,
+                              title: 'Registro',
+                              headerStyle: { backgroundColor: '#f4511e' },
+                              headerTitleStyle: { fontWeight: 'bold' } 
+                          }}/>
                 </Stack.Navigator>
             </NavigationContainer>
         </PersistGate>

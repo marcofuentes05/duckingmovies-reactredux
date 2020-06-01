@@ -21,21 +21,26 @@ import BB from './../../static/BreakingBad.jpg'
 import SeriesCarrier from './SeriesCarrier'
 import MoviesCarrier from './MoviesCarrier'
 import VideogamesCarrier from './VideoGamesCarrier'
+import Carrousel from './BannerCarrusel'
+import Emoji from 'react-native-emoji';
 
 const dimensions = Dimensions.get('window');
 const imageHeight = Math.round(dimensions.width * 9 / 16);
 const imageWidth = dimensions.width;
 
-const mainPage = ({ navigation }) => {
+const mainPage = ({ isAuth , username , navigation }) => {
+    if (!isAuth){
+        navigation.navigate('Home')
+    }
     return (
         <SafeAreaView style = {styles.containerU}>
             <ScrollView  style = {{backgroundColor : 'black'}}>
-                <ScrollView horizontal = {true} style = {{ height : imageHeight}}>
-                    <Image source = {BB} style  = {styles.image}/>
-                </ScrollView>
-                <SeriesCarrier/>
-                <MoviesCarrier />
-                <VideogamesCarrier />
+                <Text style={styles.username}>{`¡Bienvenido, ${username}!`}</Text>
+                <Emoji name = 'duck' />
+                <Carrousel />
+                <SeriesCarrier navigation = {navigation}/>
+                <MoviesCarrier navigation={navigation}/>
+                <VideogamesCarrier navigation={navigation}/>
             </ScrollView>
         </SafeAreaView>
     )
@@ -51,15 +56,22 @@ const styles = StyleSheet.create({
         height: imageHeight, 
         width: imageWidth    
     },
+    username: {
+        fontWeight: 'bold',
+        color: 'white',
+        fontSize : 30
+    }
 })
 
 const MainPageC = connect(
     state => ({
-
+        isAuth : selectors.isAuthenticated(state),
+        username : selectors.getAuthUsername(state),
     }),
     dispatch => ({
 
     })
 )(mainPage)
+
 
 export default MainPageC

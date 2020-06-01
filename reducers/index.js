@@ -14,7 +14,7 @@ import awards, * as awardsSelectors from './awards';
 import movieProducers, * as movieProducersSelectors from './movieProducers';
 import comments, * as commentsSelectors from './comments';
 import genres, * as genresSelectors from './genres';
-
+import selectedItem , * as selectedSelector from './selectedItem'
 const reducer = combineReducers({
   form : formReducer,
   auth,
@@ -30,15 +30,18 @@ const reducer = combineReducers({
   comments,
   genres,
   movieProducers,
+  selectedItem,
 });
 
 export default reducer;
-
+// selected item selector
+export const getSelectedItem = state => selectedSelector.getSelectedItem(state.selectedItem)
 // auth selectors
 export const getToken = state => authSelectors.getToken(state.auth);
 export const getIsAuthenticating = state => authSelectors.getIsAuthenticating(state.auth);
 export const getAuthenticatingError = state => authSelectors.getAuthenticatingError(state.auth);
 export const isAuthenticated = state => getToken(state) != null;
+export const isAuthError = state => getAuthenticatingError(state) != null;
 export const getAuthUserID = state => authSelectors.getAuthUserID(state.auth);
 export const getAuthUsername = state => authSelectors.getAuthUsername(state.auth);
 export const getAuthExpiration = state => authSelectors.getAuthExpiration(state.auth);

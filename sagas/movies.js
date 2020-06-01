@@ -19,7 +19,6 @@ function* getMovies(action) {
         const isAuth = yield select(selectors.isAuthenticated)
         if (isAuth) {
             const token = yield select(selectors.getToken)
-            console.log('ENTRAMOS A LA SAGA DE MOVIES', token)
             const response = yield call(
                 fetch,
                 `${API_BASE_URL}/movies/trending`,

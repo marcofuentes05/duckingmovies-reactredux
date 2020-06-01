@@ -22,7 +22,6 @@ function* getSeries(action){
         const isAuth = yield select(selectors.isAuthenticated)
         if (isAuth){
             const token = yield select(selectors.getToken)
-            console.log('ENTRAMOS A LA SAGA', token)
             const response = yield call(
                 fetch,
                 `${API_BASE_URL}/series/trending`,
@@ -38,9 +37,10 @@ function* getSeries(action){
             if (response.status == 200) {
                 const jsonResult = yield response.json();
                 const {
-                    entities : { series } , 
+                    entities : { series , actors} , 
                     result
                 } = normalize(jsonResult, schemas.series)
+                console.log(actors)
                 yield put(actions.completeFetchingSeries(series, result))
             } else if (response.status == 400) {
                 yield put(actions.failFetchingSeries('No hay token'))

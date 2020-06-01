@@ -4,7 +4,6 @@ import { Field, reduxForm, reset } from 'redux-form'
 import {
     StyleSheet,
     Text,
-    TextInput,
     TouchableOpacity,
     View,
     Alert
@@ -12,15 +11,16 @@ import {
 import * as actions from './../../actions/auth';
 import * as selectors from './../../reducers'
 
-const Buttons = ({ isAuthenticated , navigation} ) => {
+const Buttons = ({ isAuthenticated , logout , navigation} ) => {
+    useEffect(() => logout() , [])
     isAuthenticated && navigation.navigate('MainPage')
     return (
         <View style = {styles.container}>
             <TouchableOpacity onPress={() => navigation.navigate('Login')}>
                 <Text style={styles.button}>Login</Text>
             </TouchableOpacity>
-            <TouchableOpacity onPress={() => navigation.navigate('Registro') /*TODO*/}>
-                <Text style={styles.button}>Sign In</Text>
+            <TouchableOpacity onPress={() => navigation.navigate('Registro') /*TODO*/} style = {{margin : 30}}>
+                <Text style={styles.button}>Registro</Text>
             </TouchableOpacity>
         </View>
     )
@@ -28,29 +28,26 @@ const Buttons = ({ isAuthenticated , navigation} ) => {
 
 const styles = StyleSheet.create({
     button: {
-        backgroundColor: 'blue',
-        color: 'white',
+        backgroundColor: '#f4511e',
+        color: 'black',
+        fontWeight : 'bold',
         height: 30,
         lineHeight: 30,
         marginTop: 10,
         textAlign: 'center',
         width: 250,
         margin: 10,
-        borderRadius: 5
+        borderRadius: 5,
+        margin : 10,
+        
     },
     container: {
         flex : 1,
         flexDirection: 'column',
         justifyContent: 'center',
-        alignItems: 'center'
-    },
-    input: {
-        borderColor: 'black',
-        borderWidth: 1,
-        height: 37,
-        width: 250,
-        margin: 10,
-        borderRadius: 50
+        alignItems: 'center',
+        backgroundColor : 'black',
+
     }
 })
 const ButtonsC = connect(
@@ -58,7 +55,9 @@ const ButtonsC = connect(
         isAuthenticated : selectors.isAuthenticated(state)
     }),
     dispatch => ({
-
+        logout(){
+            dispatch(actions.logout())
+        }
     })
 )(Buttons)
 export default ButtonsC

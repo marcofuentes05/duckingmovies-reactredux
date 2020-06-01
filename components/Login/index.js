@@ -23,19 +23,18 @@ const Form = ( props ) => {
     const { error, handleSubmit, pristine, reset, submitting } = props
     return (
         <>
-            <Text style={styles.title}>LOGIN</Text>
             <View>
-                <Text >Username:</Text>
+                <Text  style = {{fontWeight : 'bold' , color : 'white'}}>Username:</Text>
                 <Field name="username" placeholder = 'Usuario' component={renderInput} />
             </View>
             <View>
-                <Text>Password:</Text>
+                <Text style = {{fontWeight : 'bold' , color : 'white'}}>Password:</Text>
                 <Field name="password" component={renderInputP} />
             </View>
-            <TouchableOpacity onPress={handleSubmit}>
+            <TouchableOpacity onPress={handleSubmit} style = {{backgroundColor : 'black'}}>
                 <Text style={styles.button}>Login</Text>
             </TouchableOpacity>
-            <TouchableOpacity onPress={reset}>
+            <TouchableOpacity onPress={reset} style = {{backgroundColor : 'black'}}>
                 <Text style={styles.button}>Clear Fields</Text>
             </TouchableOpacity>
         </>
@@ -46,11 +45,10 @@ const LoginForm =reduxForm({
     form : 'login',
     onSubmit( {password, username} , dispatch ) {
         dispatch(actions.startLogin(username, password))
-        console.log('hola')
     }
 })(Form)
 
-const LoginVista = ({ isAuth , navigation }) => {
+const LoginVista = ({ isAuth , error , navigation }) => {
     if (isAuth) {
         navigation.navigate('MainPage')
         navigation.reset({
@@ -61,6 +59,7 @@ const LoginVista = ({ isAuth , navigation }) => {
     return(
         <View style = {styles.container}>
             <LoginForm style={styles.container}/>
+            {error ? (<Text style={styles.errText}>¡Credenciales Incorrectas!</Text>) : (<Text style = {styles.errText}></Text>) }
             <TouchableOpacity onPress={() => navigation.navigate('Home')}>
                 <Text style={styles.button}>Back Home</Text>
             </TouchableOpacity>
@@ -70,7 +69,8 @@ const LoginVista = ({ isAuth , navigation }) => {
 
 const LoginVistaSmart = connect(
     state => ({
-        isAuth : selectors.isAuthenticated(state)
+        isAuth : selectors.isAuthenticated(state),
+        error : selectors.isAuthError(state)
     }),
     dispatch => ({})
 )(LoginVista)
@@ -78,30 +78,41 @@ const LoginVistaSmart = connect(
 export default LoginVistaSmart;
 
 const styles = StyleSheet.create({
+    errText : {
+        color : 'red',
+        fontSize : 19,
+    },
     button: {
-        backgroundColor: 'blue',
-        color: 'white',
+        backgroundColor: '#f4511e',
+        color: 'black',
+        fontWeight : 'bold',
         height: 30,
         lineHeight: 30,
         marginTop: 10,
         textAlign: 'center',
         width: 250,
         margin: 10,
-        borderRadius: 5
+        borderRadius: 50,
     },
     container: {
         flex: 1,
         flexDirection: 'column',
         justifyContent: 'space-between',
-        alignItems : 'center'
+        alignItems : 'center',
+        padding : 90,
+        backgroundColor : 'black',
     },
     input: {
         borderColor: 'black',
+        backgroundColor : 'white',
         borderWidth: 1,
         height: 37,
         width: 250,
         margin : 10,
-        borderRadius : 50
+        padding : 5,
+        paddingLeft : 10,
+        borderRadius : 50,
+        fontSize : 15
     },
     title : {
         color : 'blue',
