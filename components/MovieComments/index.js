@@ -39,7 +39,7 @@ const styles = StyleSheet.create({
 
 })
 
-const MovieComment = ({ comments , }) => {
+const MovieComment = ({ comments , isFetching }) => {
     // useEffect(()=> load() , [])
     return (comments.length > 0) ? (
         <View>
@@ -57,17 +57,19 @@ const MovieComment = ({ comments , }) => {
                 ))}
             </ScrollView>
         </View>
-        ) : (
-        <View>
+        ) : ( (isFetching) ? (<Text style = { styles.title }>Cargando...</Text>) :
+        (<View>
             <Text style = {styles.title}> No hay comentarios aún </Text>
         </View>)
+        )
         
     
 }
 
 export default connect(
     state => ({
-        comments : selectors.getMovieComments(state)
+        comments : selectors.getMovieComments(state),
+        isFetching: selectors.isFetchingMovieComments(state)
     }),
     dispatch => ({
         load(){

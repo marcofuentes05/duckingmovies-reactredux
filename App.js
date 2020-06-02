@@ -55,7 +55,7 @@ export default function App() {
                     <Stack.Screen name = 'DetailPage' component = {Detail}
                           options={{
                               headerLeft: null,
-                              title: 'Registro',
+                              title: 'Detalles',
                               headerStyle: { backgroundColor: '#f4511e' },
                               headerTitleStyle: { fontWeight: 'bold' } 
                           }}/>

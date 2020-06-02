@@ -16,10 +16,10 @@ export const getMovieCommentError = state => movieSelectors.getMovieCommentError
 
 export const getSerieComment = (state, id) => serieSelectors.getSerieComment(state.serieComments , id );
 export const getSerieComments = state => serieSelectors.getSerieComments(state.serieComments)
-export const isFetchingSerieComment = state => serieSelectors.isFetchingSerieComments(state.serieComments)
+export const isFetchingSerieComments = state => serieSelectors.isFetchingSerieComments(state.serieComments)
 export const getSerieCommentError = state => serieSerieSelectors.getSerieCommentError(state.serieComments)
 
 export const getGameComment = (state, id) => gameSelectors.getGameComment(state.gameComments , id );
 export const getGameComments = state => gameSelectors.getGameComments(state.gameComments)
-export const isFetchingGameComment = state => gameSelectors.isFetchingGameComments(state.gameComments)
+export const isFetchingGameComments = state => gameSelectors.isFetchingGameComments(state.gameComments)
 export const getGameCommentError = state => gameSelectors.getGameCommentError(state.gameComments)

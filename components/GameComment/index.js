@@ -39,7 +39,7 @@ const styles = StyleSheet.create({
 
 })
 
-const GameComment = ({ comments, }) => {
+const GameComment = ({ comments, isFetching}) => {
     // useEffect(()=> load() , [])
     return (comments.length > 0) ? (
         <View>
@@ -58,16 +58,19 @@ const GameComment = ({ comments, }) => {
             </ScrollView>
         </View>
     ) : (
-            <View>
-                <Text style={styles.title}> No hay comentarios aún </Text>
-            </View>)
+            (isFetching) ? (<Text style={styles.title}>Cargando...</Text>) :
+                (<View>
+                    <Text style={styles.title}> No hay comentarios aún </Text>
+                </View>)
+        )
 
 
 }
 
 export default connect(
     state => ({
-        comments: selectors.getGameComments(state)
+        comments: selectors.getGameComments(state),
+        isFetching : selectors.isFetchingGameComments(state),
     }),
     dispatch => ({
         load() {

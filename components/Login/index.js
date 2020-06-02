@@ -31,11 +31,11 @@ const Form = ( props ) => {
                 <Text style = {{fontWeight : 'bold' , color : 'white'}}>Password:</Text>
                 <Field name="password" component={renderInputP} />
             </View>
-            <TouchableOpacity onPress={handleSubmit} style = {{backgroundColor : 'black'}}>
-                <Text style={styles.button}>Login</Text>
+            <TouchableOpacity style={styles.button} onPress={handleSubmit}>
+                <Text style = {{fontWeight : 'bold'}}>Login</Text>
             </TouchableOpacity>
-            <TouchableOpacity onPress={reset} style = {{backgroundColor : 'black'}}>
-                <Text style={styles.button}>Clear Fields</Text>
+            <TouchableOpacity style={styles.button} onPress={reset}>
+                <Text style = {{fontWeight : 'bold'}}>Clear Fields</Text>
             </TouchableOpacity>
         </>
     )
@@ -60,9 +60,9 @@ const LoginVista = ({ isAuth , error , navigation }) => {
         <View style = {styles.container}>
             <LoginForm style={styles.container}/>
             {error ? (<Text style={styles.errText}>¡Credenciales Incorrectas!</Text>) : (<Text style = {styles.errText}></Text>) }
-            <TouchableOpacity onPress={() => navigation.navigate('Home')}>
-                <Text style={styles.button}>Back Home</Text>
-            </TouchableOpacity>
+            {/* <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Home')}>
+                <Text style = {{fontWeight : 'bold'}}>Back Home</Text>
+            </TouchableOpacity> */}
         </View>
     )
 }
@@ -84,15 +84,15 @@ const styles = StyleSheet.create({
     },
     button: {
         backgroundColor: '#f4511e',
-        color: 'black',
-        fontWeight : 'bold',
-        height: 30,
-        lineHeight: 30,
-        marginTop: 10,
-        textAlign: 'center',
-        width: 250,
-        margin: 10,
+        borderStyle: "solid",
+        borderColor: "black",
+        marginTop: 5,
+        height: 50,
+        width: 100,
         borderRadius: 50,
+        alignItems: "center",
+        justifyContent: "center",
+        marginTop: 20,
     },
     container: {
         flex: 1,

@@ -9,7 +9,7 @@ import { Field, reduxForm } from 'redux-form';
 
 const renderInput = ({ input: {onChange, ...restInput}, meta}) => (
   <View>
-    <TextInput style={styles.input} onChangeText={onChange} {...restInput}/>
+    <TextInput  style={styles.input} onChangeText={onChange} {...restInput}/>
     {
       meta.dirty && meta.error && (
         <Text style={styles.textError}>{meta.error}</Text>
@@ -40,43 +40,43 @@ const SignUp = ({
   }
   return (
     <View style={styles.view}>
-      <Text style={styles.registro}>Registro</Text>
-      <Text>Nombre</Text>
+      {/* <Text style={styles.registro}>Registro</Text> */}
+      <Text style = {styles.fieldName}>Nombre</Text>
       <Field
         name="firstName"
         type="text"
-        placeholder="Nombre"
+        placeholder={'Nombre'}
         component={renderInput}
         />
-      <Text>Apellido</Text>
+      <Text style = {styles.fieldName}>Apellido</Text>
       <Field
         name="lastName"
         type="text"
         placeholder="Apellido"
         component={renderInput}
         />
-      <Text>Usuario</Text>
+      <Text style = {styles.fieldName}>Usuario</Text>
       <Field
         name="username"
         type="text"
         placeholder="Usuario"
         component={renderInput}
         />
-      <Text>Correo</Text>
+      <Text style = {styles.fieldName}>Correo</Text>
       <Field
         name="email"
         type="text"
         placeholder="Correo"
         component={renderInput}
         />
-      <Text>Contraseña</Text>
+      <Text style = {styles.fieldName}>Contraseña</Text>
       <Field
         name="password"
         type="password"
         placeholder="Contraseña"
         component={renderInputPassword}
         />
-      <Text>Confirmar contraseña</Text>
+      <Text style = {styles.fieldName}>Confirmar contraseña</Text>
       <Field
         name="confirmPassword"
         type="password"
@@ -132,10 +132,14 @@ const styles = StyleSheet.create({
     borderRadius: 50,
     marginBottom: 10,
     marginTop: 5,
+    backgroundColor: 'white',
+    padding: 5 ,
   },
-
+  fieldName :{
+      color : 'white'
+  },
   button: {
-    backgroundColor:"black",
+    backgroundColor: '#f4511e',
     borderStyle:"solid",
     borderColor: "black",
     marginTop: 5,
@@ -148,8 +152,9 @@ const styles = StyleSheet.create({
   },
 
   createText: {
-    color: 'white',
+    color: 'black',
     borderStyle: 'solid',
+    fontWeight : 'bold'
   },
 
   registro: {
@@ -162,6 +167,8 @@ const styles = StyleSheet.create({
     display:"flex",
     justifyContent:"center",
     alignItems:"center",
+    backgroundColor : 'black',
+    flex : 1,
   },
 
   textError: {

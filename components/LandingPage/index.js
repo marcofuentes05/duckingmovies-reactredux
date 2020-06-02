@@ -16,35 +16,47 @@ const Buttons = ({ isAuthenticated , logout , navigation} ) => {
     isAuthenticated && navigation.navigate('MainPage')
     return (
         <View style = {styles.container}>
-            <TouchableOpacity onPress={() => navigation.navigate('Login')}>
-                <Text style={styles.button}>Login</Text>
+            <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Login')}>
+                <Text style = {{fontWeight : 'bold'}}>Login</Text>
             </TouchableOpacity>
-            <TouchableOpacity onPress={() => navigation.navigate('Registro') /*TODO*/} style = {{margin : 30}}>
-                <Text style={styles.button}>Registro</Text>
+            <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Registro') /*TODO*/}>
+                <Text style = {{fontWeight : 'bold'}}>Registro</Text>
             </TouchableOpacity>
         </View>
     )
 }
 
 const styles = StyleSheet.create({
+    // button: {
+    //     backgroundColor: '#f4511e',
+    //     color: 'black',
+    //     fontWeight : 'bold',
+    //     height: 30,
+    //     lineHeight: 30,
+    //     marginTop: 10,
+    //     textAlign: 'center',
+    //     width: 250,
+    //     margin: 10,
+    //     borderRadius: 5,
+    //     margin : 10,
+        
+    // },
     button: {
         backgroundColor: '#f4511e',
-        color: 'black',
-        fontWeight : 'bold',
-        height: 30,
-        lineHeight: 30,
-        marginTop: 10,
-        textAlign: 'center',
-        width: 250,
-        margin: 10,
-        borderRadius: 5,
-        margin : 10,
-        
+        borderStyle: "solid",
+        borderColor: "black",
+        marginTop: 5,
+        height: 50,
+        width: 100,
+        borderRadius: 50,
+        alignItems: "center",
+        justifyContent: "center",
+        marginTop: 20,
     },
     container: {
         flex : 1,
         flexDirection: 'column',
-        justifyContent: 'center',
+        justifyContent: 'space-evenly',
         alignItems: 'center',
         backgroundColor : 'black',
 
