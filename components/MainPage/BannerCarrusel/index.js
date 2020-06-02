@@ -1,4 +1,5 @@
-import React, { useRef } from "react";
+import React, { useEffect , useRef } from "react";
+import { connect } from 'react-redux'
 import {
     SafeAreaView,
     ScrollView,
@@ -9,7 +10,8 @@ import {
     Animated,
     useWindowDimensions
 } from "react-native";
-const images = [
+import * as selectors from './../../../reducers'
+let images = [
     'https://occ-0-33-37.1.nflxso.net/dnm/api/v6/X194eJsgWBDE2aQbaNdmCXGUP-Y/AAAABQYHuuRO8hPojbcDF-eNuU_PppZawwQPwA5e2GX9cNq6Cwa4B51pt1ynmeQmThZHZy6oieGg-jRbP0VdfSLO1O1N00eAY_tiez_lpEghlVr0ytaakKICyi7bZOGcfQ.jpg?r=382',
     "https://images.unsplash.com/photo-1556740749-887f6717d7e4",
     "https://images.unsplash.com/photo-1556740749-887f6717d7e4",
@@ -21,7 +23,10 @@ const images = [
 
 import BB from './../../../static/BreakingBad.jpg'
 
-const carrusel = () => {
+const carrusel = ({ movies }) => {
+    images = Array.from({ length: movies.length }, () => Math.floor(Math.random() * movies.length)).map(
+        (value , id ) => movies[value]
+    )
     const scrollX = useRef(new Animated.Value(0)).current;
     const { width: windowWidth } = useWindowDimensions();
     return(
@@ -49,11 +54,11 @@ const carrusel = () => {
                                 style={{ width: windowWidth, height: 250 }}
                                 key={imageIndex}
                             >
-                                <ImageBackground source={{uri : image}} style={styles.card}>
+                                <ImageBackground source={{uri : image.imageUrl}} style={styles.card}>
                                     <View style={styles.textContainer}>
-                                        {/* <Text style={styles.infoText}>
-                                            {"Image - " + imageIndex}
-                                        </Text> */}
+                                        <Text style={styles.infoText}>
+                                            {image.name+'\n'+image.duration+' minutos'}
+                                        </Text>
                                     </View>
                                 </ImageBackground>
                             </View>
@@ -115,7 +120,8 @@ const styles = StyleSheet.create({
     infoText: {
         color: "white",
         fontSize: 16,
-        fontWeight: "bold"
+        fontWeight: "bold",
+        textAlign : 'center'
     },
     normalDot: {
         height: 8,
@@ -132,4 +138,9 @@ const styles = StyleSheet.create({
 });
 
 
-export default carrusel;
+export default connect(
+    state => ({
+        movies : selectors.getMovies(state)
+    }),
+    dispatch => ({})
+)(carrusel);

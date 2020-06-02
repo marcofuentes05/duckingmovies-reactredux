@@ -6,17 +6,16 @@ import {
     Text,
     TextInput,
     TouchableOpacity,
-    View, 
-    Alert
+    View
 } from 'react-native';
 import * as actions from './../../actions/auth';
 import * as selectors from './../../reducers'
 
-const renderInput = ({ input: { onChange, ...restInput } }) => {
-    return <TextInput style={styles.input} placeHolder = 'Usuario' textContentType = 'username' onChangeText={onChange} {...restInput} />
+const renderInput = ({ input: { onChange, ...restInput } , meta }) => {
+    return <TextInput style={styles.input}  placeholder='Usuario va aqui' textContentType = 'username' onChangeText={onChange} {...restInput} />
 }
 const renderInputP = ({ input: { onChange, ...restInput } }) => {
-    return <TextInput style={styles.input} placeHolder='Contraseña' secureTextEntry = {true} textContentType = 'password' onChangeText={onChange} {...restInput} />
+    return <TextInput style={styles.input} placeholder='Contraseña va aqui' secureTextEntry = {true} textContentType = 'password' onChangeText={onChange} {...restInput} />
 }
 
 const Form = ( props ) => {
@@ -60,9 +59,6 @@ const LoginVista = ({ isAuth , error , navigation }) => {
         <View style = {styles.container}>
             <LoginForm style={styles.container}/>
             {error ? (<Text style={styles.errText}>¡Credenciales Incorrectas!</Text>) : (<Text style = {styles.errText}></Text>) }
-            {/* <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Home')}>
-                <Text style = {{fontWeight : 'bold'}}>Back Home</Text>
-            </TouchableOpacity> */}
         </View>
     )
 }

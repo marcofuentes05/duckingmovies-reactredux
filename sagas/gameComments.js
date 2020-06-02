@@ -58,3 +58,51 @@ export function* watchGetGameCommentsStarted() {
         getGameComments,
     )
 }
+
+
+function* postGameComment(action) {
+    try {
+        const isAuth = yield select(selectors.isAuthenticated)
+        if (isAuth) {
+            const token = yield select(selectors.getToken)
+            const { id } = yield select(selectors.getSelectedItem)
+            const uid = yield select(selectors.getAuthUserID)
+            const payload = { ...action.payload, author: uid, text: action.payload.text }
+            console.log('\n\n\n HOLA HOOA HOLA ', payload)
+            const response = yield call(
+                fetch,
+                `${API_BASE_URL}/videogames/${id}/comment/`,
+                {
+                    method: 'POST',
+                    body: JSON.stringify(payload),
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `JWT ${token}`
+                    },
+                }
+            );
+            if (response.status == 200) {
+                const jsonResult = yield response.json();
+                yield put(actions.completeAddingGameComment(
+                    action.payload.id,
+                    jsonResult
+                ))
+            } else if (response.status == 400 || response.status === 401) {
+                yield put(actions.failAddingGameComment('No hay token'))
+            }
+            else {
+                const non_field_errors = yield response.text();
+                yield put(actions.failAddingGameComment(non_field_errors[0]))
+            }
+        }
+    } catch (error) {
+        yield put(actions.failAddingGameComment('Hubo un error :( ' + error))
+    }
+}
+
+export function* watchAddGameCommentsStarted() {
+    yield takeEvery(
+        types.ADD_GAME_COMMENT_STARTED,
+        postGameComment,
+    )
+}

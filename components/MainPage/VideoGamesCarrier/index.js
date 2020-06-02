@@ -17,7 +17,7 @@ const VideogameCarrier = ({ videogames, load , navigation}) => {
             <Text style={{ marginTop: 15, marginLeft: 15, fontWeight: 'bold', fontSize: 20, color: 'white' }}>Videogames Trending</Text>
             <ScrollView horizontal={true} style={{ backgroundColor: 'black' }}>
                 {videogames.map((videogame, id) => {
-                    return <ItemBox type = {'Videogame'} item = {videogame} key={id} nombre={videogame.title} rating={videogame.rating} clasificacion={videogame.classification} navigation = {navigation} />
+                    return <ItemBox type={'Videogame'} item={videogame} key={id} nombre={videogame.title} rating={videogame.rating} clasificacion={videogame.classification} navigation={navigation} imageUrl={videogame.imageUrl}/>
                 })}
             </ScrollView>
         </View>

@@ -10,6 +10,7 @@ import {
 } from 'react-native';
 import * as actions from '../../actions/comments';
 import * as selectors from '../../reducers'
+import filter from 'lodash/filter'
 
 const styles = StyleSheet.create({
     title: {
@@ -18,7 +19,6 @@ const styles = StyleSheet.create({
         fontWeight: 'bold'
     },
     contaier: {
-        // wsidth : dimensions.width,
         margin: 15,
         padding: 10,
         borderColor: 'black',
@@ -33,29 +33,34 @@ const styles = StyleSheet.create({
     },
     text: {
         color: 'white',
-        // fontWeight: 'bold',
+        fontWeight: 'bold',
         fontSize: 15
+    },
+    textNotConfirmed: {
+        backgroundColor: '#c44118',
+        margin: 15,
+        padding: 10,
+        borderColor: 'black',
+        borderWidth: 2,
+        borderRadius: 15,
     }
 
 })
 
-const MovieComment = ({ comments, isFetching}) => {
-    // useEffect(()=> load() , [])
+const SerieComment = ({ comments, isFetching , load}) => {
+    useEffect(() =>load )
     return (comments.length > 0) ? (
         <View>
             <Text style={styles.title}>Comentarios</Text>
-            <ScrollView >
-                {comments.map((comment, id) => (
+            <View >
+                {filter(comments, o => o!==undefined).map((comment, id) => (
                     <View key={id} style={styles.contaier} >
-                        <Text style={styles.author}>
-                            {comment.username}
-                        </Text>
                         <Text style={styles.text}>
-                            {comment.comentario}
+                            {comment.text}
                         </Text>
                     </View>
                 ))}
-            </ScrollView>
+            </View>
         </View>
     ) : (
             (isFetching) ? (<Text style={styles.title}>Cargando...</Text>) :
@@ -63,8 +68,6 @@ const MovieComment = ({ comments, isFetching}) => {
                     <Text style={styles.title}> No hay comentarios aún </Text>
                 </View>)
             )
-
-
 }
 
 export default connect(
@@ -77,4 +80,4 @@ export default connect(
             dispatch(actions.startFetchingSerieComments())
         }
     })
-)(MovieComment)
+)(SerieComment) 

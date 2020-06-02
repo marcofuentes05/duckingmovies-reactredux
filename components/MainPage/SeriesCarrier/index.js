@@ -20,7 +20,7 @@ const SerieCarrier = ({series , load , navigation}) => {
             <Text style={{ marginTop: 15, marginLeft: 15, fontWeight: 'bold', fontSize: 20, color: 'white' }}>Series Trending</Text>
             <ScrollView horizontal={true} style={{ backgroundColor: 'black' }}>
                 {series.map ((serie , id) => {
-                    return <ItemBox type = {'Serie'} item = {serie} key = {id} nombre = {serie.name} rating = {serie.rating} clasificacion = {serie.classification} navigation = {navigation} />
+                    return <ItemBox type={'Serie'} item={serie} key={id} nombre={serie.name} rating={serie.rating} clasificacion={serie.classification} navigation={navigation} imageUrl={serie.imageUrl} />
                 })}
             </ScrollView>
         </View>

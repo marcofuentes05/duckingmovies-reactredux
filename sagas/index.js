@@ -11,6 +11,10 @@ import { watchGetMovieCommentsStarted } from './movieComments'
 import { watchGetSerieCommentsStarted } from './serieComments'
 import { watchGetGameCommentsStarted } from './gameComments';
 import { watchFetchAllMoviesStarted } from './searchMovies';
+import { watchGetSerieCommentsStarted, watchAddSerieCommentsStarted } from './serieComments'
+import { watchGetGameCommentsStarted, watchAddGameCommentsStarted} from './gameComments'
+import { watchAddMovieCommentsStarted } from './movieComments'
+
 
 function* mainSaga() {
     yield all([
@@ -23,6 +27,9 @@ function* mainSaga() {
         fork(watchGetSerieCommentsStarted),
         fork(watchGetGameCommentsStarted),
         fork(watchFetchAllMoviesStarted),
+        fork(watchAddMovieCommentsStarted),
+        fork(watchAddSerieCommentsStarted),
+        fork(watchAddGameCommentsStarted),
     ]);
 }
 

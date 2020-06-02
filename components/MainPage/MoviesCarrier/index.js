@@ -23,7 +23,7 @@ const MovieCarrier = ({peliculas , load , navigation, changeView}) => {
             </View>
             <ScrollView horizontal={true} style={{ backgroundColor: 'black' }}>
                 {peliculas.map((pelicula, id) => {
-                    return <ItemBox type = {'Movie'} item = {pelicula} key={id} nombre={pelicula.name} rating={pelicula.rating} clasificacion={pelicula.classification} navigation = {navigation} />
+                    return <ItemBox type = {'Movie'} item = {pelicula} key={id} nombre={pelicula.name} rating={pelicula.rating} clasificacion={pelicula.classification} navigation = {navigation} imageUrl = {pelicula.imageUrl}/>
                 })}
             </ScrollView>
         </View>

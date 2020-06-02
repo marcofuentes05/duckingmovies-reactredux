@@ -48,12 +48,12 @@ const FadeInView = (props) => {
     );
 }
 
-const itemBox = ({item , type , nombre, rating, clasificacion, navigation , change /*IMAGE TODO*/}) => {
+const itemBox = ({item , type , nombre, rating, clasificacion, navigation , change , imageUrl /*IMAGE TODO*/}) => {
     return (
         <FadeInView >
             <TouchableOpacity style={styles.container} onPress={() => change(item , navigation , type)}>
                 <ImageBackground 
-                    source={{ uri: 'https://nick-intl.mtvnimages.com/uri/mgid:file:gsp:scenic:/international/nick.co.uk/shows/drake-and-josh/show-cover-drakeandjosh.jpg?quality=0.75&height=0&width=480&matte=true&crop=false'}}
+                    source={{ uri: imageUrl}}
                             style = {styles.card}
                     >
                     <View style = {styles.textContainer}>
@@ -71,6 +71,7 @@ const styles = StyleSheet.create({
     textContainer: {
         backgroundColor: "rgba(0,0,0, 0.7)",
         padding : 5,
+        borderRadius : 10
     },
     infoText: {
         color: "white",
