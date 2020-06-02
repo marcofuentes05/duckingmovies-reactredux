@@ -9,7 +9,8 @@ import { watchGetMoviesStarted } from './movies';
 import { watchGetVideogamesStarted } from './videogames';
 import { watchGetMovieCommentsStarted } from './movieComments' 
 import { watchGetSerieCommentsStarted } from './serieComments'
-import { watchGetGameCommentsStarted } from './gameComments'
+import { watchGetGameCommentsStarted } from './gameComments';
+import { watchFetchAllMoviesStarted } from './searchMovies';
 
 function* mainSaga() {
     yield all([
@@ -21,6 +22,7 @@ function* mainSaga() {
         fork(watchGetMovieCommentsStarted),
         fork(watchGetSerieCommentsStarted),
         fork(watchGetGameCommentsStarted),
+        fork(watchFetchAllMoviesStarted),
     ]);
 }
 

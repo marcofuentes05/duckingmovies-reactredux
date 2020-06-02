@@ -18,6 +18,28 @@ export const failFetchingMovies = error => ({
   }
 });
 
+export const startFetchingAllMovies = (genre, rating) => ({
+  type: types.FETCH_ALL_MOVIES_STARTED,
+  payload: {
+    genre,
+    rating,
+  }
+});
+export const completeFetchingAllMovies = (entities, order) => ({
+  type: types.FETCH_ALL_MOVIES_COMPLETED,
+  payload: {
+    entities,
+    order,
+  }
+});
+
+export const failFetchingAllMovies = error => ({
+  type: types.FETCH_ALL_MOVIES_FAILED,
+  payload: {
+    error,
+  }
+});
+
 export const startAddingMovie = movie => ({
   type: types.ADD_MOVIE_STARTED,
   payload: movie

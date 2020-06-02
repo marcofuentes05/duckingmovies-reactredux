@@ -14,6 +14,7 @@ import Buttons from './components/LandingPage'
 import MainPage from './components/MainPage'
 import SignUp from './components/SignUp';
 import Detail from './components/ItemDetail'
+import ViewAllPage from './components/ViewAllPage';
 
 const { store , persistor } = configureState()
 
@@ -59,6 +60,13 @@ export default function App() {
                               headerStyle: { backgroundColor: '#f4511e' },
                               headerTitleStyle: { fontWeight: 'bold' } 
                           }}/>
+                    <Stack.Screen name='ViewAllPage' component={ViewAllPage}
+                        options={{
+                            headerLeft: null,
+                            title: 'Búsqueda',
+                            headerStyle: { backgroundColor: '#f4511e'},
+                            headerTitleStyle: { fontWeight: 'bold'}
+                        }}/>
                 </Stack.Navigator>
             </NavigationContainer>
         </PersistGate>

@@ -16,6 +16,24 @@ const byId = (state={}, action) => {
       });
       return newState;
     }
+
+    case types.FETCH_ALL_MOVIES_STARTED: {
+      const newState = {};
+      return newState;
+    }
+    
+    case types.FETCH_ALL_MOVIES_COMPLETED: {
+      const newState = { ...state };
+      const { entities, order } = action.payload;
+      order.forEach(id =>{
+        newState[id] = {
+          ...entities[id],
+          isConfirmed: true,
+        }
+      });
+      return newState;
+    }
+
     case types.ADD_MOVIE_STARTED: {
       const newState = { ...state };
       newState[action.payload.id] = {
@@ -45,6 +63,14 @@ const byId = (state={}, action) => {
 const order = (state=[], action) => {
   switch (action.type) {
     case types.FETCH_MOVIES_COMPLETED: {
+      return [
+        ...action.payload.order,
+      ];
+    }
+    case types.FETCH_ALL_MOVIES_STARTED: {
+      return []
+    }
+    case types.FETCH_ALL_MOVIES_COMPLETED: {
       return [
         ...action.payload.order,
       ];
@@ -79,6 +105,15 @@ const isFetching = (state=false , action) => {
     case types.FETCH_MOVIES_FAILED: {
       return false;
     }
+    case types.FETCH_ALL_MOVIES_STARTED: {
+      return true;
+    }
+    case types.FETCH_ALL_MOVIES_COMPLETED: {
+      return false;
+    }
+    case types.FETCH_ALL_MOVIES_FAILED: {
+      return false;
+    }
     default: {
       return state;
     } 
@@ -89,12 +124,15 @@ const error = (state=null , action) => {
   switch (action.type) {
     case types.FETCH_MOVIES_STARTED:
     case types.FETCH_MOVIES_COMPLETED:
+    case types.FETCH_ALL_MOVIES_STARTED:
+    case types.FETCH_ALL_MOVIES_COMPLETED:
     case types.ADD_MOVIE_STARTED:
     case types.ADD_MOVIE_COMPLETED:
     case types.REMOVE_MOVIE_STARTED:
     case types.REMOVE_MOVIE_COMPLETED:
       return null;
     case types.FETCH_MOVIES_FAILED:
+    case types.FETCH_ALL_MOVIES_FAILED:
     case types.ADD_MOVIE_FAILED:
     case types.REMOVE_MOVIE_FAILED:
       return action.payload.error;
