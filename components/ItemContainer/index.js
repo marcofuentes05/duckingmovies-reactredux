@@ -6,9 +6,13 @@ import {
   TouchableOpacity,
   StyleSheet,
   ImageBackground,
+  Dimensions,
 } from 'react-native';
 import * as action from './../../actions/selectedItems'
+import Emoji from 'react-native-emoji';
 
+const dimensions = Dimensions.get('window');
+const width = dimensions.width;
 
 const ItemContainer = ({item, type, nombre, rating, clas, imageUrl,navigation, change}) => {
   return(
@@ -22,6 +26,7 @@ const ItemContainer = ({item, type, nombre, rating, clas, imageUrl,navigation, c
           <Text style={styles.textName}>{nombre}</Text>
           <View style={{display:"flex", flexDirection:"row"}}>
           <Text style={styles.textRating}>{rating}</Text>
+          <Emoji name='duck' style={styles.emojiRating}/>
           <Text style={styles.textClass}>{clas}</Text>
           </View>
         </View>
@@ -57,7 +62,7 @@ const styles = StyleSheet.create({
     paddingLeft:30,
     fontSize:25,
     fontWeight: "bold",
-    width:280,
+    width:width*1/1.5,
   },
   textRating: {
     color:'#f4511e',
@@ -65,11 +70,17 @@ const styles = StyleSheet.create({
     fontSize:20,
     paddingTop: 15,
   },
+  emojiRating:{
+    paddingTop:15,
+    fontSize:20,
+  },
   textClass: {
     color:'#f4511e',
-    paddingLeft:50,
+    marginLeft:50,
     fontSize: 20,
-    paddingTop: 15,
+    marginTop: 15,
+    borderColor: '#f4511e',
+    borderWidth:1,
   }
 })
 

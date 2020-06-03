@@ -159,17 +159,17 @@ export default connect(
 const styles = StyleSheet.create({
   picker:{
     height:100,
-    width:width*1/4.2,
-    marginRight:20,
-    marginLeft:20,
+    width:width*1/4.5,
+    // marginRight:10,
+    marginLeft:width*1/11,
     // flex:1,
     color:'#f4511e',
   },
   pickerRating:{
     height:100,
-    width:width*1/6,
+    width:width*1/7,
     marginRight:20,
-    marginLeft:20,
+    marginLeft:width*1/11,
     // flex:1,
     color:'#f4511e',
   },
@@ -187,7 +187,7 @@ const styles = StyleSheet.create({
     backgroundColor:'black',
   },
   textCategoria:{
-    marginLeft:20,
+    marginLeft:width*1/12,
     marginRight:28,
     fontSize:21,
     marginTop:10,
@@ -196,7 +196,7 @@ const styles = StyleSheet.create({
     textDecorationLine: "underline",
   },
   textGenero:{
-    marginLeft:26,
+    marginLeft:width*1/20,
     marginRight:27,
     fontSize:21,
     marginTop:10,
@@ -205,7 +205,7 @@ const styles = StyleSheet.create({
     textDecorationLine: "underline",
   },
   textRating:{
-    marginLeft:22,
+    marginLeft:20,
     marginRight:18,
     fontSize:21,
     marginTop:10,
@@ -220,7 +220,8 @@ const styles = StyleSheet.create({
   },
   searchButton:{
     // flex:1,
-    left:377,
+    left:width*2/2.2,
+    // left:10,
     top:60,
     // width:width,
     height:100,

@@ -10,12 +10,20 @@ import {
 } from 'react-native';
 import * as actions from './../../actions/auth';
 import * as selectors from './../../reducers'
+import { block } from 'react-native-reanimated';
+import Emoji from 'react-native-emoji';
+
 
 const Buttons = ({ isAuthenticated , logout , navigation} ) => {
     useEffect(() => logout() , [])
     isAuthenticated && navigation.navigate('MainPage')
     return (
         <View style = {styles.container}>
+            <Text style={styles.title}>Ducking Movies</Text>
+            <View style={{display:"flex", flexDirection: "row"}}>
+                <Emoji name='duck' style={styles.emojiPato}/>
+                <Emoji name='movie_camera' style={styles.emojiCamara}/>
+            </View>
             <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Login')}>
                 <Text style = {{fontWeight : 'bold'}}>Login</Text>
             </TouchableOpacity>
@@ -51,16 +59,31 @@ const styles = StyleSheet.create({
         borderRadius: 50,
         alignItems: "center",
         justifyContent: "center",
-        marginTop: 20,
+        marginTop: 70,
     },
     container: {
         flex : 1,
         flexDirection: 'column',
-        justifyContent: 'space-evenly',
+        // justifyContent: 'space-evenly',
         alignItems: 'center',
         backgroundColor : 'black',
 
-    }
+    },
+    title: {
+        color:'#f4511e',
+        fontSize:40,
+        // fontFamily: 
+        borderRadius:20,
+        marginTop:100,
+        fontWeight: 'bold'
+    },
+    emojiPato:{
+        fontSize:90,
+    },
+    emojiCamara:{
+        fontSize:90,
+        marginLeft:50,
+    },
 })
 const ButtonsC = connect(
     state => ({
