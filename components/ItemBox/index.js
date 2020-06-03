@@ -16,14 +16,8 @@ import {
     TouchableWithoutFeedback,
     ImageBackground,
 } from 'react-native';
-import * as actions from './../../actions/auth';
-import * as selectors from './../../reducers'
-import BB from './../../static/BreakingBad.jpg'
-// import { TouchableHighlight } from 'react-native-gesture-handler';
-const dimensions = Dimensions.get('window');
-const imageHeight = Math.round(dimensions.width * 9 / 16);
-const imageWidth = dimensions.width;
 import * as action from './../../actions/selectedItems'
+import Emoji from 'react-native-emoji';
 
 const FadeInView = (props) => {
     const fadeAnim = useRef(new Animated.Value(0)).current  // Initial value for opacity: 
@@ -58,7 +52,7 @@ const itemBox = ({item , type , nombre, rating, clasificacion, navigation , chan
                     >
                     <View style = {styles.textContainer}>
                         <Text style = {styles.infoText}>{nombre}</Text>
-                        <Text style = {styles.infoText}>{rating}</Text>
+                        <Text style = {styles.infoText}>{rating} <Emoji name = 'duck' style = {styles.infoText}/> </Text>
                         <Text style = {styles.infoText}>{clasificacion}</Text>
                     </View>
                 </ImageBackground>
@@ -123,7 +117,6 @@ const styles = StyleSheet.create({
 
 export default connect(
     state => ({
-
     }),
     dispatch => ({
         change(prop , navigation , type){

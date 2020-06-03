@@ -52,7 +52,7 @@ const order = (state = [], action) => {
         case types.ADD_GAME_COMMENT_STARTED: {
             return [
                 ...state,
-                ...action.payload.id,
+                action.payload.id,
             ];
         }
         case types.ADD_GAME_COMMENT_COMPLETED: {

@@ -48,12 +48,12 @@ const styles = StyleSheet.create({
 })
 
 const SerieComment = ({ comments, isFetching , load}) => {
-    useEffect(() =>load )
+    useEffect(() =>load() , [])
     return (comments.length > 0) ? (
         <View>
             <Text style={styles.title}>Comentarios</Text>
             <View >
-                {filter(comments, o => o!==undefined).map((comment, id) => (
+                {comments.map((comment, id) => (
                     <View key={id} style={styles.contaier} >
                         <Text style={styles.text}>
                             {comment.text}

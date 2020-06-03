@@ -8,20 +8,22 @@ import {
 import { API_BASE_URL } from '../settings'
 
 import { normalize } from 'normalizr'
-import * as schemas from './../schemas/movies'
 
 import * as selectors from '../reducers'
-import * as types from '../types/movies'
-import * as actions from '../actions/movies'
+import * as types from '../types/awards'
+import * as actions from '../actions/awards'
+import * as schemas from '../schemas/awards';
 
-function* getMovies(action) {
+function* getSerieAwards(action) {
     try {
         const isAuth = yield select(selectors.isAuthenticated)
         if (isAuth) {
             const token = yield select(selectors.getToken)
+            console.log(token,'\n\n\n')
+            const { id } = yield select(selectors.getSelectedItem)
             const response = yield call(
                 fetch,
-                `${API_BASE_URL}/movies/trending`,
+                `${API_BASE_URL}/series/${id}/awards`,
                 {
                     method: 'GET',
                     body: JSON.stringify(action.payload),
@@ -34,27 +36,27 @@ function* getMovies(action) {
             if (response.status == 200) {
                 const jsonResult = yield response.json();
                 const {
-                    entities: { movies },
-                    result 
-                } = normalize(jsonResult, schemas.movies)
-                yield put(actions.completeFetchingMovies(movies, result))
+                    entities: { awards },
+                    result
+                } = normalize(jsonResult, schemas.awards)
+                yield put(actions.completeFetchingSerieAwards(awards, result))
             } else if (response.status == 400) {
-                yield put(actions.failFetchingMovies('No hay token'))
+                yield put(actions.failFetchingSerieAwards('No hay token'))
             }
             else {
                 const non_field_errors = yield response.text();
-                yield put(actions.failFetchingMovies(non_field_errors[0]))
+                yield put(actions.failFetchingSerieAwards(non_field_errors))
             }
         }
     } catch (error) {
-        yield put(actions.failFetchingMovies('Hubo un error :('))
+        yield put(actions.failFetchingSerieAwards('Hubo un error :(' + error))
     }
 }
 
-export function* watchGetMoviesStarted() {
+export function* watchGetSerieAwardsStarted() {
     yield takeEvery(
-        types.FETCH_MOVIES_STARTED,
-        getMovies,
+        types.FETCH_SERIE_AWARDS_STARTED,
+        getSerieAwards,
     )
 }
 

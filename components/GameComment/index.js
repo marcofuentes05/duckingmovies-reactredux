@@ -48,14 +48,14 @@ const styles = StyleSheet.create({
 })
 
 const GameComment = ({ comments, isFetching , load}) => {
-    useEffect(()=> load , [comments])
+    useEffect(()=> load() , [])
     return (comments.length > 0) ? (
         <View>
             <Text style={styles.title}>Comentarios</Text>
             <ScrollView >
-                {filter(comments , o=>o!==undefined).map((comment, id) => (
+                {comments.map((comment, id) => (
                     <View key={id} style={styles.contaier} >
-                        <Text style={styles.text}>
+                        <Text style={comment.isConfirmed ? styles.text : styles.textNotConfirmed}>
                             {comment.text}
                         </Text>
                     </View>

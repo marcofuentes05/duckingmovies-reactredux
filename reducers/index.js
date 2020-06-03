@@ -88,17 +88,29 @@ export const getDirectors = state => directorsSelectors.getDirectors(state.direc
 export const isFetchingDirectors = state => directorsSelectors.isFetchingDirectors(state.directors);
 export const getDirectorError = state => directorsSelectors.getDirectorError(state.directors);
 
-// actors selectors
-export const getActor = (state , id) => actorsSelectors.getActor(state.actors , id);
-export const getActors = (state) => actorsSelectors.getActors(state.actors);
-export const getIsFetchingActor = (state) => actorsSelectors.getIsFetchingActor(state.actors);
-export const getActorError = (state) => actorsSelectors.getActorError(state.actors);
+// movie actors selectors
+export const getMovieActor = (state , id) => actorsSelectors.getMovieActor(state.actors , id);
+export const getMovieActors = (state) => actorsSelectors.getMovieActors(state.actors);
+export const getIsFetchingMovieActor = (state) => actorsSelectors.getIsFetchingMovieActor(state.actors);
+export const getMovieActorError = (state) => actorsSelectors.getMovieActorError(state.actors);
 
-// awards selectors
-export const getAward = (state, id) => awardsSelectors.getAward(state.awards, id);
-export const getAwards = state => awardsSelectors.getAwards(state.awards);
-export const isFetchingAwards = state => awardsSelectors.isFetchingAwards(state.awards);
-export const getAwardError = state => awardsSelectors.getAwardError(state.awards);
+// serie actors selectors
+export const getSerieActor = (state, id) => actorsSelectors.getSerieActor(state.actors, id);
+export const getSerieActors = (state) => actorsSelectors.getSerieActors(state.actors);
+export const getIsFetchingSerieActor = (state) => actorsSelectors.getIsFetchingSerieActor(state.actors);
+export const getSerieActorError = (state) => actorsSelectors.getSerieActorError(state.actors);
+
+// movie awards selectors
+export const getMovieAward = (state, id) => awardsSelectors.getMovieAward(state.awards, id);
+export const getMovieAwards = state => awardsSelectors.getMovieAwards(state.awards);
+export const isFetchingMovieAwards = state => awardsSelectors.isFetchingMovieAwards(state.awards);
+export const getMovieAwardError = state => awardsSelectors.getMovieAwardError(state.awards);
+
+// serie awards selectors
+export const getSerieAward = (state, id) => awardsSelectors.getSerieAward(state.awards, id);
+export const getSerieAwards = state => awardsSelectors.getSerieAwards(state.awards);
+export const isFetchingSerieAwards = state => awardsSelectors.isFetchingSerieAwards(state.awards);
+export const getSerieAwardError = state => awardsSelectors.getSerieAwardError(state.awards);
 
 // movie producers selectors
 export const getMovieProducer = (state, id) => movieProducersSelectors.getMovieProducer(state.movieProducers, id);

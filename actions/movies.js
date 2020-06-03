@@ -79,3 +79,20 @@ export const failRemovingMovie = error => ({
 });
 
 
+export const startFetchMovieAward = () => ({
+    type : FETCH_MOVIE_AWARDS_STARTED,
+    payload : {
+
+    }
+})
+export const CompleteFetchMovieAward = ( entities , order) => ({
+    type : FETCH_MOVIE_AWARDS_COMPLETED,
+    payload : {
+        entites,
+        order
+    }
+})
+export const FailFetchMovieAward = error => ({
+    type : FETCH_MOVIE_AWARDS_FAILED,
+    payload : error
+})

@@ -12,7 +12,10 @@ import { watchFetchAllMoviesStarted } from './searchMovies';
 import { watchGetSerieCommentsStarted, watchAddSerieCommentsStarted } from './serieComments'
 import { watchGetGameCommentsStarted, watchAddGameCommentsStarted} from './gameComments'
 import { watchAddMovieCommentsStarted } from './movieComments'
-
+import { watchGetSerieAwardsStarted } from './serieAwards'
+import { watchGetMovieAwardsStarted } from './movieAwards'
+import { watchGetMovieActorsStarted } from './movieActors'
+import { watchGetSerieActorsStarted } from './serieActors'
 
 function* mainSaga() {
     yield all([
@@ -28,6 +31,11 @@ function* mainSaga() {
         fork(watchAddMovieCommentsStarted),
         fork(watchAddSerieCommentsStarted),
         fork(watchAddGameCommentsStarted),
+        fork(watchGetSerieAwardsStarted),
+        fork(watchGetGameCommentsStarted),
+        fork(watchGetMovieAwardsStarted),
+        fork(watchGetMovieActorsStarted),
+        fork(watchGetSerieActorsStarted),
     ]);
 }
 

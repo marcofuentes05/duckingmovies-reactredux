@@ -1,11 +1,11 @@
 import { combineReducers } from 'redux';
 import omit from 'lodash/omit';
 
-import * as types from '../types/comments';
+import * as types from '../types/awards';
 
 const byId = (state = {}, action) => {
     switch (action.type) {
-        case types.FETCH_MOVIE_COMMENTS_COMPLETED: {
+        case types.FETCH_SERIE_AWARDS_COMPLETED: {
             const newState = { ...state };
             const { entities, order } = action.payload;
             order.forEach(id => {
@@ -16,7 +16,7 @@ const byId = (state = {}, action) => {
             });
             return newState;
         }
-        case types.ADD_MOVIE_COMMENT_STARTED: {
+        case types.ADD_SERIE_AWARD_STARTED: {
             const newState = { ...state };
             newState[action.payload.id] = {
                 ...action.payload,
@@ -24,16 +24,16 @@ const byId = (state = {}, action) => {
             }
             return newState;
         }
-        case types.ADD_MOVIE_COMMENT_COMPLETED: {
-            const { tempId, comment } = action.payload;
+        case types.ADD_SERIE_AWARD_COMPLETED: {
+            const { tempId, award } = action.payload;
             const newState = omit(state, tempId);
-            newState[comment.id] = {
-                ...comment,
+            newState[award.id] = {
+                ...award,
                 isConfirmed: true,
             }
             return newState;
         }
-        case types.REMOVE_MOVIE_COMMENT_STARTED: {
+        case types.REMOVE_SERIE_AWARD_STARTED: {
             return omit(state, action.payload.id);
         }
         default: {
@@ -44,22 +44,22 @@ const byId = (state = {}, action) => {
 
 const order = (state = [], action) => {
     switch (action.type) {
-        case types.FETCH_MOVIE_COMMENTS_COMPLETED: {
+        case types.FETCH_SERIE_AWARDS_COMPLETED: {
             return [
                 ...action.payload.order,
             ];
         }
-        case types.ADD_MOVIE_COMMENT_STARTED: {
+        case types.ADD_SERIE_AWARD_STARTED: {
             return [
                 ...state,
-                action.payload.id,
+                ...action.payload.id,
             ];
         }
-        case types.ADD_MOVIE_COMMENT_COMPLETED: {
-            const { tempId, comment } = action.payload;
-            return state.map(id => id === tempId ? comment.id : id);
+        case types.ADD_SERIE_AWARD_COMPLETED: {
+            const { tempId, award } = action.payload;
+            return state.map(id => id === tempId ? award.id : id);
         }
-        case types.REMOVE_MOVIE_COMMENT_STARTED: {
+        case types.REMOVE_SERIE_AWARD_STARTED: {
             return state.filter(id => id !== action.payload.id);
         }
         default: {
@@ -70,13 +70,13 @@ const order = (state = [], action) => {
 
 const isFetching = (state = false, action) => {
     switch (action.type) {
-        case types.FETCH_MOVIE_COMMENTS_STARTED: {
+        case types.FETCH_SERIE_AWARDS_STARTED: {
             return true;
         }
-        case types.FETCH_MOVIE_COMMENTS_COMPLETED: {
+        case types.FETCH_SERIE_AWARDS_COMPLETED: {
             return false;
         }
-        case types.FETCH_MOVIE_COMMENTS_FAILED: {
+        case types.FETCH_SERIE_AWARDS_FAILED: {
             return false;
         }
         default: {
@@ -87,16 +87,16 @@ const isFetching = (state = false, action) => {
 
 const error = (state = null, action) => {
     switch (action.type) {
-        case types.FETCH_MOVIE_COMMENTS_STARTED:
-        case types.FETCH_MOVIE_COMMENTS_COMPLETED:
-        case types.ADD_MOVIE_COMMENT_STARTED:
-        case types.ADD_MOVIE_COMMENT_COMPLETED:
-        case types.REMOVE_MOVIE_COMMENT_STARTED:
-        case types.REMOVE_MOVIE_COMMENT_COMPLETED:
+        case types.FETCH_SERIE_AWARDS_STARTED:
+        case types.FETCH_SERIE_AWARDS_COMPLETED:
+        case types.ADD_SERIE_AWARD_STARTED:
+        case types.ADD_SERIE_AWARD_COMPLETED:
+        case types.REMOVE_SERIE_AWARD_STARTED:
+        case types.REMOVE_SERIE_AWARD_COMPLETED:
             return null;
-        case types.FETCH_MOVIE_COMMENTS_FAILED:
-        case types.ADD_MOVIE_COMMENT_FAILED:
-        case types.REMOVE_MOVIE_COMMENT_FAILED:
+        case types.FETCH_SERIE_AWARDS_FAILED:
+        case types.ADD_SERIE_AWARD_FAILED:
+        case types.REMOVE_SERIE_AWARD_FAILED:
             return action.payload.error;
         default: {
             return state;
@@ -111,7 +111,7 @@ export default combineReducers({
     error,
 });
 
-export const getMovieComment = (state, id) => state.byId[id];
-export const getMovieComments = state => state.order.map(id => getMovieComment(state, id));
-export const isFetchingMovieComments = state => state.isFetching;
-export const getMovieCommentError = state => state.error;
+export const getAward = (state, id) => state.byId[id];
+export const getAwards = state => state.order.map(id => getAward(state, id));
+export const isFetchingAwards = state => state.isFetching;
+export const getAwardError = state => state.error;

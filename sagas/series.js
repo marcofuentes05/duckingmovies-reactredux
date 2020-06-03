@@ -34,6 +34,7 @@ function* getSeries(action){
                     }
                 }
             );
+            console.log
             if (response.status == 200) {
                 const jsonResult = yield response.json();
                 const {
@@ -46,10 +47,11 @@ function* getSeries(action){
             }
             else {
                 const non_field_errors = yield response.text();
-                yield put(actions.failFetchingSeries(non_field_errors[0]))
+                yield put(actions.failFetchingSeries(non_field_errors))
             }
         }
     }catch(error){
+        yield put (actions.failFetchingSeries(error))
     }
 }
 
