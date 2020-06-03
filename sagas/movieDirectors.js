@@ -10,11 +10,11 @@ import { API_BASE_URL } from '../settings'
 import { normalize } from 'normalizr'
 
 import * as selectors from '../reducers'
-import * as types from '../types/actors'
-import * as actions from '../actions/actors'
-import * as schemas from '../schemas/actors';
+import * as types from '../types/directors'
+import * as actions from '../actions/directors'
+import * as schemas from '../schemas/directors';
 
-function* getMovieActors(action) {
+function* getMovieDirector(action) {
     try {
         const isAuth = yield select(selectors.isAuthenticated)
         if (isAuth) {
@@ -22,7 +22,7 @@ function* getMovieActors(action) {
             const { id } = yield select(selectors.getSelectedItem)
             const response = yield call(
                 fetch,
-                `${API_BASE_URL}/movies/${id}/actors`,
+                `${API_BASE_URL}/movies/${id}/director`,
                 {
                     method: 'GET',
                     body: JSON.stringify(action.payload),
@@ -35,27 +35,27 @@ function* getMovieActors(action) {
             if (response.status == 200) {
                 const jsonResult = yield response.json();
                 const {
-                    entities: { actors },
+                    entities: { directors },
                     result
-                } = normalize(jsonResult, schemas.actors)
-                yield put(actions.completeFetchingMovieActors(actors, result))
+                } = normalize(jsonResult, schemas.directors)
+                yield put(actions.completeFetchingMovieDirector(directors, result))
             } else if (response.status == 400) {
-                yield put(actions.failFetchingMovieActors('No hay token'))
+                yield put(actions.failFetchingMovieDirector('No hay token'))
             }
             else {
                 const non_field_errors = yield response.text();
-                yield put(actions.failFetchingMovieActors(non_field_errors[0]))
+                yield put(actions.failFetchingMovieDirector(non_field_errors[0]))
             }
         }
     } catch (error) {
-        yield put(actions.failFetchingMovieActors('Hubo un error :(' + error))
+        yield put(actions.failFetchingMovieDirector('Hubo un error :(' + error))
     }
 }
 
-export function* watchGetMovieActorsStarted() {
+export function* watchGetMovieDirectorStarted() {
     yield takeEvery(
-        types.FETCH_MOVIE_ACTORS_STARTED,
-        getMovieActors,
+        types.FETCH_MOVIE_DIRECTOR_STARTED,
+        getMovieDirector,
     )
 }
 

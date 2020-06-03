@@ -15,6 +15,7 @@ import {
 import * as actions from '../../actions/comments';
 import * as awardActions from '../../actions/awards';
 import * as actorActions from '../../actions/actors';
+import * as directorActions from '../../actions/directors';
 import * as selectors from '../../reducers';
 import Emoji from 'react-native-emoji';
 import MovieComments from '../MovieComments'
@@ -116,9 +117,7 @@ const CommentForm = ({ handleSubmit }) => (
 )
 
 const afterSubmit = ( result , dispatch ) => {
-    console.log('ANTES')
-    dispatch(reset('commentForm'))
-    console.log('DESPUES')
+    dispatch(reset('commentText'))
 }
 
 const EsteSiesForm =  connect (
@@ -130,49 +129,93 @@ const EsteSiesForm =  connect (
         form : 'commentForm',
         onSubmitSuccess : afterSubmit ,
         onSubmit({ commentText } , dispatch, { type }){
-            if (type === 'Movie') {
-                dispatch(actions.startAddingMovieComment({ text: commentText, id: uuidv4() }))
-            }
-            if (type ==='Serie'){
-                dispatch(actions.startAddingSerieComment({text : commentText , id : uuidv4() }))
-            }
-            if (type ==='Videogame'){
-                dispatch(actions.startAddingGameComment({text : commentText , id : uuidv4() }))  
+            if (commentText){
+                if (type === 'Movie') {
+                    dispatch(actions.startAddingMovieComment({ text: commentText, id: uuidv4() }))
+                }
+                if (type ==='Serie'){
+                    dispatch(actions.startAddingSerieComment({text : commentText , id : uuidv4() }))
+                }
+                if (type ==='Videogame'){
+                    dispatch(actions.startAddingGameComment({text : commentText , id : uuidv4() }))  
+                }
             }
         }
     })(CommentForm)
 )
-const ItemDetail = ({item , sAwards , mAwards , loadMovieAwards , loadSerieAwards , loadMovieActors , loadSerieActors , mActors , sActors}) => {
-    useEffect(() => loadSerieAwards(), [])
-    useEffect(() => loadMovieAwards(), [])
-    useEffect(() => loadMovieActors() , [])
-    useEffect(() => loadSerieActors() , [])
-    console.log(mAwards)
-    return(
-        <ScrollView 
-            scrollEnabled = {true} 
-            style = {styles.container}
-            resetScrollToCoords={{ x: 0, y: 0 }}>
-                <Image source = {{uri : item.imageUrl}} style = {styles.background} />
-                {(item.type === 'Movie' || item.type=== 'Serie') && (<Text style = {styles.title}> {item.name} </Text>)}
-                {(item.type === 'Videogame') && (<Text style={styles.title}> {item.title} </Text>)}
-                {(item.type === 'Movie') && ( (mAwards.length !== 0) ? (<Text style = {styles.award}> {'Premios: \n'} {mAwards.map(value => (<Text style = {styles.award}>{value.name + ' en ' + value.year} <Emoji  name = 'sports_medal' style = {styles.award}/> {'\n'} </Text>))} </Text>) : <Text style = {styles.award}></Text>)}
-                {(item.type === 'Serie') && ( (sAwards.length !== 0) ? (<Text style = {styles.award}> {'Premios: \n'} {sAwards.map(value => <Text style={styles.award}>{value.name + ' en ' + value.year} <Emoji name='sports_medal' style={styles.award} /> {'\n'}</Text>)}</Text>) : <Text style = {styles.award}></Text>)}
+const ItemDetail = ({item , 
+                        sAwards , 
+                        mAwards ,
+                        mActors , 
+                        sActors,
+                        mDirector,
+                        sDirector ,
+                        loadMovieAwards ,
+                        loadSerieAwards , 
+                        loadMovieActors , 
+                        loadSerieActors , 
+                        loadMovieDirector,
+                        loadSerieDirector,
+                    }) => {
+    if (item.type === 'Serie'){
+        useEffect(() => loadSerieAwards(), [])
+        useEffect(() => loadSerieActors(), [])
+        useEffect(() => loadSerieDirector(), [])
 
-                {(item.type === 'Movie') && ((mActors.length !== 0) ? (<Text style={styles.award}> {'Actores: \n'} {mActors.map(value => (<Text style={styles.award}>{value.name + ' ' + value.lastName + '\n'} </Text>))} </Text>) : <Text style={styles.award}></Text>)}
-                {(item.type === 'Serie') && ((sActors.length !== 0) ? (<Text style={styles.award}> {'Actores: \n'} {sActors.map(value => <Text style={styles.award}>{value.name + ' ' + value.lastName + '\n'}</Text>)}</Text>) : <Text style={styles.award}></Text>)}
+        return(
+            <ScrollView
+                scrollEnabled={true}
+                style={styles.container}
+                resetScrollToCoords={{ x: 0, y: 0 }}>
+                <Image source={{ uri: item.imageUrl }} style={styles.background} />
+                <Text style={styles.title}> {item.name} </Text>
+                {(!sAwards.isFetching) ? (<Text style={styles.award}> {'Premios: \n'} {sAwards.map(value => <Text style={styles.award}>{value.name + ' en ' + value.year} <Emoji name='sports_medal' style={styles.award} /> {'\n'}</Text>)}</Text>) : <Text style={styles.award}>Cargando...</Text>}
+                {((!sActors.isFetching) ? (<Text style={styles.award}> {'Actores de la serie: \n'} {sActors.map(value => <Text style={styles.award}>{value.name + ' ' + value.lastName + '\n'}</Text>)}</Text>) : <Text style={styles.award}>Cargando...</Text>)}
+                {((sDirector.isFetching) ? (<Text style={styles.award}>Cargando...</Text>) : (<Text style={styles.award}> <Emoji name={'movie_camera'} /> Director: {sDirector.name + ' ' + sDirector.lastName + '\n'}</Text>))}
+                <Text style={styles.classification}> {`Clasificación: ${item.classification}`}{'\n'}</Text>
+                <Text style={styles.rating}>{`Rating: ${parseInt(item.rating)} `}<Emoji name='duck' style={styles.rating} /> {'\n'}</Text>
+                <SerieComments />
+                <EsteSiesForm />
+            </ScrollView>
+        )
 
-                
-
-                <Text style = {styles.classification}> {`Clasificación: ${item.classification}`}{'\n'}</Text>
-                <Text style = {styles.rating}>{`Rating: ${parseInt(item.rating)} `}<Emoji name = 'duck' style = {styles.rating}/> {'\n'}</Text>
-                <Text style = {styles.classification}>¡Duckealo!</Text>
-                {(item.type === 'Movie') && (<MovieComments/>)}
-                {(item.type === 'Serie') && (<SerieComments />)}
-                {(item.type === 'Videogame') && (<GameComments />)}
-            <EsteSiesForm />
-        </ScrollView>
-    )
+    }else if (item.type === 'Movie'){
+        useEffect(() => loadMovieAwards(), [])
+        useEffect(() => loadMovieActors(), [])
+        useEffect(() => loadMovieDirector(), [])
+        return(
+            <ScrollView
+                scrollEnabled={true}
+                style={styles.container}
+                resetScrollToCoords={{ x: 0, y: 0 }}>
+                <Image source={{ uri: item.imageUrl }} style={styles.background} />
+                <Text style={styles.title}> {item.name} </Text>
+                {(!mAwards.isFetching) ? (<Text style={styles.award}> {'Premios: \n'} {mAwards.map(value => (<Text style={styles.award}>{value.name + ' en ' + value.year} <Emoji name='sports_medal' style={styles.award} /> {'\n'} </Text>))} </Text>) : (<Text style={styles.award}></Text>)}
+                {((!mActors.isFetching) ? (<Text style={styles.award}> {'Actores de la pelicula: \n'} {mActors.map(value => (<Text style={styles.award}>{value.name + ' ' + value.lastName + '\n'} </Text>))} </Text>) : <Text style={styles.award}>Cargando...</Text>)}
+                {((mDirector.isFetching) ? (<Text style={styles.award}>Cargando...</Text>) : (<Text style={styles.award}> <Emoji name={'movie_camera'} /> Director: {mDirector.name + ' ' + mDirector.lastName + '\n'}</Text>))}
+                <Text style={styles.classification}> {`Clasificación: ${item.classification}`}{'\n'}</Text>
+                <Text style={styles.rating}>{`Rating: ${parseInt(item.rating)} `}<Emoji name='duck' style={styles.rating} /> {'\n'}</Text>
+                <MovieComments />
+                <EsteSiesForm/>
+            </ScrollView>
+        )
+    }else if (item.type === 'Videogame' || item.type === 'Juego'){
+        return(
+            <ScrollView
+                scrollEnabled={true}
+                style={styles.container}
+                resetScrollToCoords={{ x: 0, y: 0 }}>
+                <Image source={{ uri: item.imageUrl }} style={styles.background} />
+                <Text style={styles.title}> {item.title} </Text>
+                <Text style={styles.classification}> {`Clasificación: ${item.classification}`}{'\n'}</Text>
+                <Text style={styles.rating}>{`Rating: ${parseInt(item.rating)} `}<Emoji name='duck' style={styles.rating} /> {'\n'}</Text>
+                <GameComments />
+                <EsteSiesForm />
+            </ScrollView>
+        )
+    }else{
+        return(<Text style = {styles.title}>Hello darkness my old friend</Text>)
+    }
 }
 
 export default connect(
@@ -181,7 +224,9 @@ export default connect(
         sAwards : selectors.getSerieAwards(state),
         mAwards : selectors.getMovieAwards(state),
         mActors : selectors.getMovieActors(state),
-        sActors: selectors.getSerieActors(state)
+        sActors: selectors.getSerieActors(state),
+        mDirector : selectors.getMovieDirector(state),
+        sDirector : selectors.getSerieDirector(state),
     }),
     dispatch => ({
         loadMovieAwards(){
@@ -195,6 +240,13 @@ export default connect(
         },
         loadSerieActors(){
             dispatch(actorActions.startFetchingSerieActors())
+        },
+        loadMovieDirector(){
+            dispatch(directorActions.startFetchingMovieDirector())
+        },
+        loadSerieDirector(){
+            dispatch(directorActions.startFetchingSerieDirector())
         }
+
     }),
 )(ItemDetail)

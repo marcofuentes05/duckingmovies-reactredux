@@ -19,6 +19,8 @@ import { watchGetMovieActorsStarted } from './movieActors'
 import { watchGetSerieActorsStarted } from './serieActors'
 import { watchFetchSearchSeriesStarted } from './searchSeries';
 import { watchFetchSearchVideogamesStarted } from './searchVideogames';
+import { watchGetMovieDirectorStarted } from './movieDirectors';
+import { watchGetSerieDirectorStarted } from './serieDirectors';
 
 
 function* mainSaga() {
@@ -42,6 +44,8 @@ function* mainSaga() {
         fork(watchGetSerieActorsStarted),
         fork(watchFetchSearchSeriesStarted),
         fork(watchFetchSearchVideogamesStarted),
+        fork(watchGetMovieDirectorStarted),
+        fork(watchGetSerieDirectorStarted),
     ]);
 }
 

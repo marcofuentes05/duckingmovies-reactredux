@@ -81,8 +81,6 @@ function* postMovieComment(action){
             );
             if (response.status == 200) {
                 const jsonResult = yield response.json();
-                console.log(jsonResult)
-                console.log(action.payload.id)
                 yield put(actions.completeAddingMovieComment(
                     action.payload.id,
                     jsonResult

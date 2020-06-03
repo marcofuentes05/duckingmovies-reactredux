@@ -19,7 +19,6 @@ function* getSerieAwards(action) {
         const isAuth = yield select(selectors.isAuthenticated)
         if (isAuth) {
             const token = yield select(selectors.getToken)
-            console.log(token,'\n\n\n')
             const { id } = yield select(selectors.getSelectedItem)
             const response = yield call(
                 fetch,

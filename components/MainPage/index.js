@@ -32,6 +32,10 @@ const imageWidth = dimensions.width;
 const mainPage = ({ isAuth , username , navigation , logout}) => {
     if (!isAuth){
         navigation.navigate('Home')
+        navigation.reset({
+            index : 0,
+            routes : [{name : 'Home'}]
+        })
     }
     return (
         <SafeAreaView style = {styles.containerU}>

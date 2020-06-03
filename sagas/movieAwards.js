@@ -32,7 +32,6 @@ function* getMovieAwards(action) {
                     }
                 }
             );
-            console.log(response)
             if (response.status == 200) {
                 const jsonResult = yield response.json();
                 const {

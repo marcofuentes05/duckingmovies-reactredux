@@ -17,7 +17,6 @@ const TokenRefresh = ({
         },
         []
     );
-    console.log('Verifico')
     return null;
 };
 

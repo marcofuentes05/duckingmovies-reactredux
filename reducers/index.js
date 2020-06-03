@@ -95,11 +95,15 @@ export const getConsoles = state => consolesSelectors.getConsoles(state.consoles
 export const isFetchingConsoles = state => consolesSelectors.isFetchingConsoles(state.consoles);
 export const getConsoleError = state => consolesSelectors.getConsoleError(state.consoles);
 
-// directors selectors
-export const getDirector = (state, id) => directorsSelectors.getDirector(state.directors, id);
-export const getDirectors = state => directorsSelectors.getDirectors(state.directors);
-export const isFetchingDirectors = state => directorsSelectors.isFetchingDirectors(state.directors);
-export const getDirectorError = state => directorsSelectors.getDirectorError(state.directors);
+// movie directors selectors
+export const getMovieDirector = (state) => directorsSelectors.getMovieDirector(state.directors);
+export const isFetchingMovieDirectors = state => directorsSelectors.isFetchingMovieDirectors(state.directors);
+export const getMovieDirectorError = state => directorsSelectors.getMovieDirectorError(state.directors);
+
+// serie directors selectors
+export const getSerieDirector = (state) => directorsSelectors.getSerieDirector(state.directors);
+export const isFetchingSerieDirectors = state => directorsSelectors.isFetchingSerieDirectors(state.directors);
+export const getSerieDirectorError = state => directorsSelectors.getSerieDirectorError(state.directors);
 
 // movie actors selectors
 export const getMovieActor = (state , id) => actorsSelectors.getMovieActor(state.actors , id);

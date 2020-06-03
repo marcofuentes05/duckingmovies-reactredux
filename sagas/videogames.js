@@ -21,7 +21,7 @@ function* getVideogames(action) {
             const token = yield select(selectors.getToken)
             const response = yield call(
                 fetch,
-                `${API_BASE_URL}/videogames/trendingall`,
+                `${API_BASE_URL}/videogames/trending`,
                 {
                     method: 'GET',
                     body: JSON.stringify(action.payload),

@@ -68,7 +68,6 @@ function* postSerieComment(action) {
             const { id } = yield select(selectors.getSelectedItem)
             const uid = yield select(selectors.getAuthUserID)
             const payload = { ...action.payload, author: uid, text: action.payload.text }
-            console.log('\n\n\n HOLA HOOA HOLA ', payload)
             const response = yield call(
                 fetch,
                 `${API_BASE_URL}/series/${id}/comment/`,

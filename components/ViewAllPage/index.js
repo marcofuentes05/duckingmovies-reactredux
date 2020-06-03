@@ -120,7 +120,6 @@ export default connect(
     onSubmit({type, genre, rating}, dispatch, {category}){
       if(type=== undefined){
         if(category.category==="Movies"){
-          console.log("llegue")
           type="Movies"
         } else if (category.category==="Series"){
           type="Series"
