@@ -15,6 +15,11 @@ import MainPage from './components/MainPage'
 import SignUp from './components/SignUp';
 import Detail from './components/ItemDetail'
 import ViewAllPage from './components/ViewAllPage';
+import {
+    tokenReviewTime,
+} from './settings';
+
+import TokenRefresh from './components/TokenRefresh';
 
 const { store , persistor } = configureState()
 
@@ -24,6 +29,7 @@ export default function App() {
   return (
     <Provider store = {store}>  
         <PersistGate loading = {null} persistor = {persistor}>
+            <TokenRefresh reviewTime={tokenReviewTime}/>
             <NavigationContainer>
                 <Stack.Navigator initialRouteName = "Home">
                     <Stack.Screen name='Home' component={Buttons} 

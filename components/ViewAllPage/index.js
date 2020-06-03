@@ -7,11 +7,15 @@ import {
   Picker,
   StyleSheet,
   TouchableOpacity,
+  Dimensions,
 } from 'react-native';
 
 import ItemContainer from '../ItemContainer';
 import * as selectors from '../../reducers';
-import * as actions from '../../actions/movies';
+import * as searchMoviesActions from '../../actions/searchMovies';
+import * as searchSeriesActions from '../../actions/searchSeries';
+import * as searchVideogamesActions from '../../actions/searchVideogames';
+import * as selectedCategoryActions from '../../actions/selectedCategory';
 import { AppLoading } from 'expo';
 import Emoji from 'react-native-emoji';
 import { Field, reduxForm } from 'redux-form';
@@ -19,6 +23,9 @@ import { Field, reduxForm } from 'redux-form';
 // const dimensions = Dimensions.get('window');
 // const imageHeight = Math.round(dimensions.width * 9 / 16);
 // const imageWidth = dimensions.width;
+
+const dimensions = Dimensions.get('window');
+const width = dimensions.width;
 
 const renderPicker = ({ input:{onChange, value, ...restInput}}) => (
   <Picker itemStyle={{color:'#f4511e'}} style={styles.picker} onValueChange={onChange} value={value} selectedValue={value} {...restInput}>
@@ -30,7 +37,7 @@ const renderPicker = ({ input:{onChange, value, ...restInput}}) => (
 
 const renderGenrePicker = ({ input:{onChange, value, ...restInput}}) => (
   <Picker itemStyle={{color:'#f4511e'}} style={styles.picker} onValueChange={onChange} value={value} selectedValue={value} {...restInput}>
-    <Picker.Item label="Ninguno" value="Ninguno"/>
+    <Picker.Item label="Todos" value="Ninguno"/>
     <Picker.Item label="Acción" value="Acci"/>
     <Picker.Item label="Thriller" value="Thriller"/>
     <Picker.Item label="Aventura" value="Aventura"/>
@@ -52,11 +59,11 @@ const renderRatingPicker = ({input:{onChange, value, ...restInput}}) => (
     <Picker.Item label="3" value={3.0}/>
     <Picker.Item label="2" value={2.0}/>
     <Picker.Item label="1" value={1.0}/>
-    <Picker.Item label="0" value={0.0}/>
   </Picker>
 );
 
-const ViewAllPage = ({series, peliculas, juegos, handleSubmit, navigation}) => {
+const ViewAllPage = ({series, peliculas, juegos, handleSubmit, navigation, category}) => {
+  useEffect(handleSubmit,[category])
   return (
     <View style={styles.container}>
       <View style={styles.textContainer}>
@@ -82,10 +89,18 @@ const ViewAllPage = ({series, peliculas, juegos, handleSubmit, navigation}) => {
         <Emoji name='mag' style={styles.emoji}/>
       </TouchableOpacity>
       <ScrollView style={{marginBottom:140,}}>
-        {peliculas.length > 0 ? (
+        {category.category=="Movies" ? (
           peliculas.map((pelicula, id) => {
             return <ItemContainer type={'Movie'} item={pelicula} key={id} clas={pelicula.classification} nombre={pelicula.name} rating={pelicula.rating} imageUrl={pelicula.imageUrl} navigation={navigation} />
-          })): <View></View>
+          })): ( category.category=="Series" ? (
+            series.map((serie, id ) => {
+              return <ItemContainer type={'Serie'} item={serie} key={id} clas={serie.classification} nombre={serie.name} rating={serie.rating} imageUrl={serie.imageUrl} navigation={navigation} />
+            })
+          ) : (
+            juegos.map((juego, id) => {
+              return <ItemContainer type={'Juego'} item={juego} key={id} clas={juego.classification} nombre={juego.title} rating={juego.rating} imageUrl={juego.imageUrl} navigation={navigation} />
+            } )
+          ) )
         }
       </ScrollView>
     </View>
@@ -94,14 +109,24 @@ const ViewAllPage = ({series, peliculas, juegos, handleSubmit, navigation}) => {
 
 export default connect(
   (state) => ({
-    peliculas: selectors.getMovies(state) ? selectors.getMovies(state) : [],
+    peliculas: selectors.getSearchMovies(state) ? selectors.getSearchMovies(state) : [],
+    category: selectors.getSelectedCategory(state),
+    series: selectors.getSearchSeries(state) ? selectors.getSearchSeries(state):[],
+    juegos: selectors.getSearchVideogames(state) ? selectors.getSearchVideogames(state):[],
   }),
 )(
   reduxForm({
     form: 'search',
-    onSubmit({type, genre, rating}, dispatch){
+    onSubmit({type, genre, rating}, dispatch, {category}){
       if(type=== undefined){
-        type = "Movies"
+        if(category.category==="Movies"){
+          console.log("llegue")
+          type="Movies"
+        } else if (category.category==="Series"){
+          type="Series"
+        } else {
+          type="Juegos"
+        }
       }
       if(genre===undefined){
         genre = "Ninguno"
@@ -110,17 +135,20 @@ export default connect(
         rating = 5.0
       }
       if(type== "Movies"){
+        category.category="Movies",
         dispatch(
-          actions.startFetchingAllMovies(genre, rating)
+          searchMoviesActions.startFetchingSearchMovies(genre, rating),
       );}
       else if(type== "Series"){
+        category.category="Series",
         dispatch(
-
+          searchSeriesActions.startFetchingSearchSeries(genre, rating),
         );
       }
       else if(type== "Juegos"){
+        category.category="Juegos",
         dispatch(
-
+          searchVideogamesActions.startFetchingSearchVideogames(genre, rating),
         );
       }
     }
@@ -131,7 +159,7 @@ export default connect(
 const styles = StyleSheet.create({
   picker:{
     height:100,
-    width:100,
+    width:width*1/4.2,
     marginRight:20,
     marginLeft:20,
     // flex:1,
@@ -139,7 +167,7 @@ const styles = StyleSheet.create({
   },
   pickerRating:{
     height:100,
-    width:50,
+    width:width*1/6,
     marginRight:20,
     marginLeft:20,
     // flex:1,
@@ -194,7 +222,7 @@ const styles = StyleSheet.create({
     // flex:1,
     left:377,
     top:60,
-    width:200,
+    // width:width,
     height:100,
     // backgroundColor:'red',
     // marginTop:200

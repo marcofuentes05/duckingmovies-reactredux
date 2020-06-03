@@ -14,7 +14,12 @@ import awards, * as awardsSelectors from './awards';
 import movieProducers, * as movieProducersSelectors from './movieProducers';
 import comments, * as commentsSelectors from './comments';
 import genres, * as genresSelectors from './genres';
-import selectedItem , * as selectedSelector from './selectedItem'
+import selectedItem , * as selectedSelector from './selectedItem';
+import searchMovies, * as searchMoviesSelectors from './searchMovies';
+import searchVideogames, * as searchVideogamesSelectors from './searchVideogames';
+import searchSeries, * as searchSeriesSelectors from './searchSeries';
+import selectedCategory, * as selectedCategorySelectors from './selectedCategory';
+
 const reducer = combineReducers({
   form : formReducer,
   auth,
@@ -31,11 +36,19 @@ const reducer = combineReducers({
   genres,
   movieProducers,
   selectedItem,
+  searchSeries,
+  searchMovies,
+  searchVideogames,
+  selectedCategory,
 });
 
 export default reducer;
 // selected item selector
 export const getSelectedItem = state => selectedSelector.getSelectedItem(state.selectedItem)
+
+// selected category selector
+export const getSelectedCategory = state => selectedCategorySelectors.getSelectedCategory(state.selectedCategory);
+
 // auth selectors
 export const getToken = state => authSelectors.getToken(state.auth);
 export const getIsAuthenticating = state => authSelectors.getIsAuthenticating(state.auth);
@@ -141,3 +154,21 @@ export const getGenre = (state , id) => genresSelectors.getGenre(state.genres , 
 export const getGenres = state => genresSelectors.getGenres(state.genres);
 export const isFetchingGenres = state => genresSelectors.isFetchingGenres(state.genres);
 export const getGenreError = state => genresSelectors.getGenreError(state.genres);
+
+// search movies
+export const getSearchMovie = (state, id) => searchMoviesSelectors.getSearchMovie(state.searchMovies, id);
+export const getSearchMovies = state => searchMoviesSelectors.getSearchMovies(state.searchMovies);
+export const isFetchingSearchMovies = state => searchMoviesSelectors.isFetchingSearchMovies(state.searchMovies);
+export const getSearchMoviesError = state => searchMoviesSelectors.getSearchMoviesError(state.searchMovies);
+
+// search series
+export const getSearchSerie = (state, id) => searchSeriesSelectors.getSearchSerie(state.searchSeries, id);
+export const getSearchSeries = state => searchSeriesSelectors.getSearchSeries(state.searchSeries);
+export const isFetchingSearchSeries = state => searchSeriesSelectors.isFetchingSearchSeries(state.searchSeries);
+export const getSearchSeriesError = state => searchSeriesSelectors.getSearchSeriesError(state.searchSeries);
+
+// search videogames
+export const getSearchVideogame = (state, id) => searchVideogamesSelectors.getSearchVideogame(state.searchVideogames, id);
+export const getSearchVideogames = state => searchVideogamesSelectors.getSearchVideogames(state.searchVideogames);
+export const isFetchingSearchVideogames = state => searchVideogamesSelectors.isFetchingSearchVideogames(state.searchVideogames);
+export const getSearchVideogamesError = state => searchVideogamesSelectors.getSearchVideogamesError(state.searchVideogames);

@@ -11,13 +11,13 @@ import {
 import { API_BASE_URL }  from '../settings';
 
 import { normalize } from 'normalizr'
-import * as schemas from './../schemas/movies'
+import * as schemas from './../schemas/videogames'
 
 import * as selectors from '../reducers';
-import * as types from '../types/searchMovies';
-import * as actions from '../actions/searchMovies';
+import * as types from '../types/searchVideogames';
+import * as actions from '../actions/searchVideogames';
 
-function* searchMovies (action) {
+function* searchVideogame (action) {
   try{
     const isAuth = yield select(selectors.isAuthenticated)
     if(isAuth){
@@ -25,7 +25,7 @@ function* searchMovies (action) {
       const { genre, rating } = action.payload;
       const response = yield call(
         fetch,
-        `${API_BASE_URL}/movies/search/`,
+        `${API_BASE_URL}/videogames/search/`,
         {
           method: 'GET',
           headers:{
@@ -36,31 +36,31 @@ function* searchMovies (action) {
           },
         },
       );
-    
+
       if(response.status == 200){
         const jsonResult = yield response.json();
         const {
-          entities: { movies },
+          entities: { videogames },
           result 
-        } = normalize(jsonResult, schemas.movies)
-        yield put(actions.completeFetchingSearchMovies(movies, result))
+        } = normalize(jsonResult, schemas.videogames)
+        yield put(actions.completeFetchingSearchVideogames(videogames, result))
       }
       else {
           const non_field_errors = yield response.text();
-          yield put(actions.failFetchingSearchMovies(non_field_errors[0]))
+          yield put(actions.failFetchingSearchVideogames(non_field_errors[0]))
       }
     }
   }catch(error){
-    yield put(actions.failFetchingSearchMovies('Hubo un error :('))
+    yield put(actions.failFetchingSearchVideogames('Hubo un error :('))
   }
 };
 
 
 
 
-export function* watchFetchSearchMoviesStarted(){
+export function* watchFetchSearchVideogamesStarted(){
   yield takeEvery(
-      types.FETCH_SEARCH_MOVIES_STARTED,
-      searchMovies,
+      types.FETCH_SEARCH_VIDEOGAMES_STARTED,
+      searchVideogame,
   )
 }

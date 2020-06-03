@@ -10,15 +10,16 @@ import {
 import ItemBox from './../../ItemBox'
 import * as selectors from './../../../reducers'
 import * as actions from './../../../actions/movies'
+import * as selectedCategoryActions from '../../../actions/selectedCategory';
 
-const MovieCarrier = ({peliculas , load , navigation, changeView}) => {
+const MovieCarrier = ({peliculas , load , navigation, changeView, selectCategory}) => {
     useEffect(() => load() , [] )
     return (
         <View style = {{borderTopColor : 'white' , borderWidth : 1 , marginTop : 10}} >
             <View style={{display:"flex", flexDirection:"row"}}>
             <Text style={{ marginTop: 15, marginLeft: 15, fontWeight: 'bold', fontSize: 20, color: 'white' }}>Películas Trending</Text>
-            <TouchableOpacity onPress={()=>navigation.navigate('ViewAllPage')}>
-                <Text style={{color:'#f4511e', marginLeft:130,marginTop:20,borderColor:'white'}}>Ver todo</Text>
+            <TouchableOpacity onPress={()=>{selectCategory("Movies"), navigation.navigate('ViewAllPage')}}>
+                <Text style={{color:'#f4511e', marginLeft:106,marginTop:20,borderColor:'white'}}>Ver todo</Text>
             </TouchableOpacity>
             </View>
             <ScrollView horizontal={true} style={{ backgroundColor: 'black' }}>
@@ -37,6 +38,9 @@ export default connect(
     dispatch => ({
         load(){
             dispatch(actions.startFetchingMovies())
-        }
+        },
+        selectCategory(category){
+            dispatch(selectedCategoryActions.selectCategory(category))
+        },
     })
 )(MovieCarrier)

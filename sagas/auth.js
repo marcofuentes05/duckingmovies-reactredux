@@ -8,7 +8,7 @@ import {
     select,
 } from 'redux-saga/effects';
 
-import { API_BASE_AUTH }  from '../settings'
+import { API_BASE_AUTH, validTimePercentage, API_BASE_AUTH_REFRESH }  from '../settings'
 
 import * as selectors from '../reducers'
 import * as types from '../types/auth'
@@ -48,3 +48,46 @@ export function* watchLoginStarted(){
         login,
     )
 }
+
+function* refreshToken(action) {
+    const expiration = yield select(selectors.getAuthExpiration);
+    const now =  parseInt(new Date().getTime() / 1000);
+    const usedTimePercentage = now/expiration;
+  
+    if (usedTimePercentage > validTimePercentage) {
+      try {
+        const token = yield select(selectors.getToken);
+        const response = yield call(
+            fetch,
+            `${API_BASE_AUTH_REFRESH}`,
+            {
+              method: 'POST',
+              body: JSON.stringify({ token }),
+              headers:{
+                'Content-Type': 'application/json',
+              },
+            },
+        );
+  
+        if (response.status == 200) {
+            const jsonResult = yield response.json();
+            yield put(actions.completeTokenRefresh(jsonResult.token));
+        } else {
+            // TODO: poner un redirect al home (login)
+            const { non_field_errors } = yield response.json();
+            yield put(actions.failTokenRefresh(non_field_errors[0]));
+        }
+      } catch (error) {
+          // TODO: poner un redirect al home (login)
+          yield put(actions.failTokenRefresh('Falló horrible la conexión mano'));
+      }
+    }
+  }
+  
+  export function* watchRefreshTokenStarted() {
+    yield takeEvery(
+      types.TOKEN_REFRESH_STARTED,
+      refreshToken,
+    );
+  }
+  

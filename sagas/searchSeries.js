@@ -11,21 +11,21 @@ import {
 import { API_BASE_URL }  from '../settings';
 
 import { normalize } from 'normalizr'
-import * as schemas from './../schemas/movies'
+import * as schemas from './../schemas/series'
 
 import * as selectors from '../reducers';
-import * as types from '../types/searchMovies';
-import * as actions from '../actions/searchMovies';
+import * as types from '../types/searchSeries';
+import * as actions from '../actions/searchSeries';
 
-function* searchMovies (action) {
+function* searchSeries (action) {
   try{
     const isAuth = yield select(selectors.isAuthenticated)
     if(isAuth){
-      const token = yield select(selectors.getToken)
+      const token = yield select(selectors.getToken);
       const { genre, rating } = action.payload;
       const response = yield call(
         fetch,
-        `${API_BASE_URL}/movies/search/`,
+        `${API_BASE_URL}/series/search/`,
         {
           method: 'GET',
           headers:{
@@ -36,31 +36,31 @@ function* searchMovies (action) {
           },
         },
       );
-    
+
       if(response.status == 200){
         const jsonResult = yield response.json();
         const {
-          entities: { movies },
+          entities: { series },
           result 
-        } = normalize(jsonResult, schemas.movies)
-        yield put(actions.completeFetchingSearchMovies(movies, result))
+        } = normalize(jsonResult, schemas.series)
+        yield put(actions.completeFetchingSearchSeries(series, result))
       }
       else {
           const non_field_errors = yield response.text();
-          yield put(actions.failFetchingSearchMovies(non_field_errors[0]))
+          yield put(actions.failFetchingSearchSeries(non_field_errors[0]))
       }
     }
   }catch(error){
-    yield put(actions.failFetchingSearchMovies('Hubo un error :('))
+    yield put(actions.failFetchingSearchSeries('Hubo un error :('))
   }
 };
 
 
 
 
-export function* watchFetchSearchMoviesStarted(){
+export function* watchFetchSearchSeriesStarted(){
   yield takeEvery(
-      types.FETCH_SEARCH_MOVIES_STARTED,
-      searchMovies,
+      types.FETCH_SEARCH_SERIES_STARTED,
+      searchSeries,
   )
 }

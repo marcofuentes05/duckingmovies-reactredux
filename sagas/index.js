@@ -1,25 +1,34 @@
 import { fork, all} from 'redux-saga/effects'
 
 import {
-    watchLoginStarted
+    watchLoginStarted,
+    watchRefreshTokenStarted,
 } from './auth';
 import { watchSignUpStarted } from './signUp'; 
 import { watchSeriesStarted } from './series';
 import { watchGetMoviesStarted } from './movies';
 import { watchGetVideogamesStarted } from './videogames';
 import { watchGetMovieCommentsStarted } from './movieComments' 
-import { watchFetchAllMoviesStarted } from './searchMovies';
+import { watchFetchSearchMoviesStarted } from './searchMovies';
 import { watchGetSerieCommentsStarted, watchAddSerieCommentsStarted } from './serieComments'
 import { watchGetGameCommentsStarted, watchAddGameCommentsStarted} from './gameComments'
+<<<<<<< Updated upstream
 import { watchAddMovieCommentsStarted } from './movieComments'
 import { watchGetSerieAwardsStarted } from './serieAwards'
 import { watchGetMovieAwardsStarted } from './movieAwards'
 import { watchGetMovieActorsStarted } from './movieActors'
 import { watchGetSerieActorsStarted } from './serieActors'
+=======
+import { watchAddMovieCommentsStarted } from './movieComments';
+import { watchFetchSearchSeriesStarted } from './searchSeries';
+import { watchFetchSearchVideogamesStarted } from './searchVideogames';
+
+>>>>>>> Stashed changes
 
 function* mainSaga() {
     yield all([
         fork(watchLoginStarted),
+        fork(watchRefreshTokenStarted),
         fork(watchSignUpStarted),
         fork(watchSeriesStarted),
         fork(watchGetMoviesStarted),
@@ -27,15 +36,20 @@ function* mainSaga() {
         fork(watchGetMovieCommentsStarted),
         fork(watchGetSerieCommentsStarted),
         fork(watchGetGameCommentsStarted),
-        fork(watchFetchAllMoviesStarted),
+        fork(watchFetchSearchMoviesStarted),
         fork(watchAddMovieCommentsStarted),
         fork(watchAddSerieCommentsStarted),
         fork(watchAddGameCommentsStarted),
+<<<<<<< Updated upstream
         fork(watchGetSerieAwardsStarted),
         fork(watchGetGameCommentsStarted),
         fork(watchGetMovieAwardsStarted),
         fork(watchGetMovieActorsStarted),
         fork(watchGetSerieActorsStarted),
+=======
+        fork(watchFetchSearchSeriesStarted),
+        fork(watchFetchSearchVideogamesStarted),
+>>>>>>> Stashed changes
     ]);
 }
 
