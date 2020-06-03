@@ -142,21 +142,28 @@ const EsteSiesForm =  connect (
         }
     })(CommentForm)
 )
-const ItemDetail = ({item , sAwards , mAwards , loadMovieAwards , loadSerieAwards }) => {
+const ItemDetail = ({item , sAwards , mAwards , loadMovieAwards , loadSerieAwards , loadMovieActors , loadSerieActors , mActors , sActors}) => {
     useEffect(() => loadSerieAwards(), [])
     useEffect(() => loadMovieAwards(), [])
+    useEffect(() => loadMovieActors() , [])
+    useEffect(() => loadSerieActors() , [])
     console.log(mAwards)
     return(
         <ScrollView 
             scrollEnabled = {true} 
             style = {styles.container}
-            resetScrollToCoords={{ x: 0, y: 0 }}
-            >
+            resetScrollToCoords={{ x: 0, y: 0 }}>
                 <Image source = {{uri : item.imageUrl}} style = {styles.background} />
                 {(item.type === 'Movie' || item.type=== 'Serie') && (<Text style = {styles.title}> {item.name} </Text>)}
                 {(item.type === 'Videogame') && (<Text style={styles.title}> {item.title} </Text>)}
                 {(item.type === 'Movie') && ( (mAwards.length !== 0) ? (<Text style = {styles.award}> {'Premios: \n'} {mAwards.map(value => (<Text style = {styles.award}>{value.name + ' en ' + value.year} <Emoji  name = 'sports_medal' style = {styles.award}/> {'\n'} </Text>))} </Text>) : <Text style = {styles.award}></Text>)}
                 {(item.type === 'Serie') && ( (sAwards.length !== 0) ? (<Text style = {styles.award}> {'Premios: \n'} {sAwards.map(value => <Text style={styles.award}>{value.name + ' en ' + value.year} <Emoji name='sports_medal' style={styles.award} /> {'\n'}</Text>)}</Text>) : <Text style = {styles.award}></Text>)}
+
+                {(item.type === 'Movie') && ((mActors.length !== 0) ? (<Text style={styles.award}> {'Actores: \n'} {mActors.map(value => (<Text style={styles.award}>{value.name + ' ' + value.lastName + '\n'} </Text>))} </Text>) : <Text style={styles.award}></Text>)}
+                {(item.type === 'Serie') && ((sActors.length !== 0) ? (<Text style={styles.award}> {'Actores: \n'} {sActors.map(value => <Text style={styles.award}>{value.name + ' ' + value.lastName + '\n'}</Text>)}</Text>) : <Text style={styles.award}></Text>)}
+
+                
+
                 <Text style = {styles.classification}> {`Clasificación: ${item.classification}`}{'\n'}</Text>
                 <Text style = {styles.rating}>{`Rating: ${parseInt(item.rating)} `}<Emoji name = 'duck' style = {styles.rating}/> {'\n'}</Text>
                 <Text style = {styles.classification}>¡Duckealo!</Text>

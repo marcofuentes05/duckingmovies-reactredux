@@ -26,9 +26,10 @@ import Emoji from 'react-native-emoji';
 
 const dimensions = Dimensions.get('window');
 const imageHeight = Math.round(dimensions.width * 9 / 16);
+const whidth = dimensions.width;
 const imageWidth = dimensions.width;
 
-const mainPage = ({ isAuth , username , navigation }) => {
+const mainPage = ({ isAuth , username , navigation , logout}) => {
     if (!isAuth){
         navigation.navigate('Home')
     }
@@ -43,6 +44,9 @@ const mainPage = ({ isAuth , username , navigation }) => {
                 <SeriesCarrier navigation = {navigation}/>
                 <MoviesCarrier navigation={navigation}/>
                 <VideogamesCarrier navigation={navigation}/>
+                <TouchableOpacity style = {styles.logoutButton} onPress = {() => logout()} >
+                    <Text style = {styles.logoutText}>Logout</Text>
+                </TouchableOpacity>
             </ScrollView>
         </SafeAreaView>
     )
@@ -62,6 +66,22 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         color: 'white',
         fontSize : 30
+    },
+    logoutButton : {
+        backgroundColor : 'red',
+        borderRadius : 10,
+        height : 45,
+        alignItems : 'center',
+        justifyContent : 'center',
+        width : dimensions.width * 3 / 4,
+        alignSelf : 'center',
+        margin : 25
+    },
+    logoutText : {
+        fontWeight : 'bold',
+        color : 'white',
+        textAlign : 'center',
+        fontSize : 20
     }
 })
 
@@ -71,7 +91,9 @@ const MainPageC = connect(
         username : selectors.getAuthUsername(state),
     }),
     dispatch => ({
-
+        logout(){
+            dispatch(actions.logout())
+        }
     })
 )(mainPage)
 

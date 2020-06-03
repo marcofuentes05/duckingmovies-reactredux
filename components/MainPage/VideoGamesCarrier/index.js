@@ -15,7 +15,7 @@ import * as selectedCategoryActions from '../../../actions/selectedCategory';
 const VideogameCarrier = ({ videogames, load , navigation, selectCategory}) => {
     useEffect(() => load(), [])
     return (
-        <View style={{ borderTopColor: 'white', borderWidth: 1, marginTop: 10 }} >
+        <View style={{ borderTopColor: 'white', borderBottomColor: 'white' , borderWidth: 1, marginTop: 10 }} >
             <View style={{display:"flex", flexDirection:"row"}} >
             <Text style={{ marginTop: 15, marginLeft: 15, fontWeight: 'bold', fontSize: 20, color: 'white' }}>Videogames Trending</Text>
                 <TouchableOpacity onPress={()=>{selectCategory("Juegos"), navigation.navigate('ViewAllPage')}}>

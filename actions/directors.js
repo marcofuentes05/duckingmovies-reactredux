@@ -1,57 +1,84 @@
 import * as types from './types/directors';
 
-export const startFetchingDirectors = () => ({
-  type: types.FETCH_DIRECTORS_STARTED,
+export const startFetchingMovieDirectors = () => ({
+  type: types.FETCH_MOVIE_DIRECTORS_STARTED,
 });
 
-export const completeFetchingDirectors = (entities, order) => ({
-  type: types.FETCH_DIRECTORS_COMPLETED,
+export const completeFetchingMovieDirectors = (entities, order) => ({
+  type: types.FETCH_MOVIE_DIRECTORS_COMPLETED,
   payload: {
     entities,
     order,
   }
 });
 
-export const failFetchingDirectors = error => ({
-  type: types.FETCH_DIRECTORS_FAILED,
+export const failFetchingMovieDirectors = error => ({
+  type: types.FETCH_MOVIE_DIRECTORS_FAILED,
   payload: {
     error,
   }
 });
 
-export const startAddingDirector = director => ({
-  type: types.ADD_DIRECTOR_STARTED,
+
+// SERIE DIRECTOR
+
+export const startFetchingSerieDirectors = () => ({
+    type: types.FETCH_SERIE_DIRECTORS_STARTED,
+});
+
+export const completeFetchingSerieDirectors = (entities, order) => ({
+    type: types.FETCH_SERIE_DIRECTORS_COMPLETED,
+    payload: {
+        entities,
+        order,
+    }
+});
+
+export const failFetchingSerieDirectors = error => ({
+    type: types.FETCH_SERIE_DIRECTORS_FAILED,
+    payload: {
+        error,
+    }
+});
+//-----------------------------------------------
+//
+//              POR SI DA TIEMPO
+//
+// ----------------------------------------------
+
+export const startAddingSerieDirector = director => ({
+  type: types.ADD_MOVIE_DIRECTOR_STARTED,
   payload: director
 });
 
-export const completeAddingDirector = (tempId, director) => ({
-  type: types.ADD_DIRECTOR_COMPLETED,
+export const completeAddingMovieDirector = (tempId, director) => ({
+  type: types.ADD_MOVIE_DIRECTOR_COMPLETED,
   payload: {
     tempId,
     director,
   }
 });
 
-export const failAddingDirector = error => ({
-  type: types.ADD_DIRECTOR_FAILED,
+export const failAddingMovieDirector = error => ({
+  type: types.ADD_MOVIE_DIRECTOR_FAILED,
   payload: {
     error,
   }
 });
 
-export const startRemovingDirector = id => ({
-  type: types.REMOVE_DIRECTOR_STARTED,
+export const startRemovingMovieDirector = id => ({
+  type: types.REMOVE_MOVIE_DIRECTOR_STARTED,
   payload: {
     id,
   }
 });
 
-export const completeRemovingDirector = () => ({
-  type: types.REMOVE_DIRECTOR_COMPLETED,
+export const completeRemovingMovieDirector = () => ({
+  type: types.REMOVE_MOVIE_DIRECTOR_COMPLETED,
 });
 
-export const failRemovingDirector = error => ({
-  type: types.REMOVE_DIRECTOR_FAILED,
+export const failRemovingMovieDirector = error => ({
+  type: types.REMOVE_MOVIE_DIRECTOR_FAILED,
   payload: {
     error,
   }
