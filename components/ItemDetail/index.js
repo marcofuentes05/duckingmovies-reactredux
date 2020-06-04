@@ -196,8 +196,8 @@ const ItemDetail = ({item ,
                 resetScrollToCoords={{ x: 0, y: 0 }}>
                 <Image source={{ uri: item.imageUrl }} style={styles.background} />
                 <Text style={styles.title}> {item.name} </Text>
-                {(!mAwards.isFetching) ? (<Text style={styles.award}> {'Premios: \n'} {mAwards.map((value , key) => (<Text style={styles.award} key = {id}>{value.name + ' en ' + value.year} <Emoji name='sports_medal' style={styles.award} /> {'\n'} </Text>))} </Text>) : (<Text style={styles.award}></Text>)}
-                {((!mActors.isFetching) ? (<Text style={styles.award}> {'Actores de la pelicula: \n'} {mActors.map((value , key) => (<Text style={styles.award} key = {id}>{value.name + ' ' + value.lastName + '\n'} </Text>))} </Text>) : <Text style={styles.award}>Cargando...</Text>)}
+                {(!mAwards.isFetching) ? (<Text style={styles.award}> {'Premios: \n'} {mAwards.map((value , key) => (<Text style={styles.award} key = {key}>{value.name + ' en ' + value.year} <Emoji name='sports_medal' style={styles.award} /> {'\n'} </Text>))} </Text>) : (<Text style={styles.award}></Text>)}
+                {((!mActors.isFetching) ? (<Text style={styles.award}> {'Actores de la pelicula: \n'} {mActors.map((value , key) => (<Text style={styles.award} key = {key}>{value.name + ' ' + value.lastName + '\n'} </Text>))} </Text>) : <Text style={styles.award}>Cargando...</Text>)}
                 {((mDirector.isFetching) ? (<Text style={styles.award}>Cargando...</Text>) : (<Text style={styles.award}> <Emoji name={'movie_camera'} /> Director: {mDirector.name + ' ' + mDirector.lastName + '\n'}</Text>))}
                 <Text style={styles.classification}> {`Clasificación: ${item.classification}`}{'\n'}</Text>
                 <Text style={styles.rating}>{`Rating: ${parseInt(item.rating)} `}<Emoji name='duck' style={styles.rating} /> {'\n'}</Text>
@@ -208,7 +208,6 @@ const ItemDetail = ({item ,
     }else if (item.type === 'Videogame' || item.type === 'Juego'){
         useEffect(() => loadConsole() , [])
         useEffect(() => loadGameDeveloper() , [])
-        console.log(dev)
         return(
             <ScrollView
                 scrollEnabled={true}

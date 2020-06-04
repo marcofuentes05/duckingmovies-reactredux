@@ -34,7 +34,6 @@ function* getSeries(action){
                     }
                 }
             );
-            console.log
             if (response.status == 200) {
                 const jsonResult = yield response.json();
                 const {

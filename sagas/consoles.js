@@ -38,7 +38,6 @@ function* getConsoles(action) {
                     entities: { consoles },
                     result
                 } = normalize(jsonResult, schemas.consoles)
-                console.log(consoles)
                 yield put(actions.completeFetchingConsoles(consoles, result))
             } else if (response.status == 400) {
                 yield put(actions.failFetchingConsoles('No hay token'))
