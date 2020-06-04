@@ -2,7 +2,7 @@
 
 <h4 align = center> Front-end para el proyecto final de Sistemas y Tecnologías Web - 1er semestre de 2020 </h4>
 
-<h5 align = center>Desarrollado por Marco Fuentes y Andy Castillo, utilizando React Native</h5>
+<h5 align = center>Desarrollado por Marco Fuentes y Andy Castillo, utilizando React Native, expo, ngrok</h5>
 
 ## Creación del proyecto
 
@@ -10,9 +10,12 @@ Este proyecto fue creado con expo, pensado para ser ejecutado en iPhones con al 
 
 ## Requisitos
 
+**Importante** primero tener el Django server corriendo localmente: [ver el repositorio del Django server](https://github.com/marcofuentes05/duckingmovies-django)
+
+1. *React Native*: Tener instalada la última versin de [React Native](https://reactnative.dev/)
 1. *Node.js*: Tener instalada la última versión de [Node.js](https://nodejs.org/es/download/)
-2. *Git*: Adicionalmente, usar git para gestionar el proyecto. [Descargar aqui](https://www.linode.com/docs/development/version-control/how-to-install-git-on-linux-mac-and-windows/)
-3. *ngrok*: Para conectarse al servidor usando HTTPS. [Vea el paso a paso](https://ngrok.com/)
+2. *ngrok*: Para conectarse al servidor usando HTTPS. [Favor de ver el paso a paso](https://ngrok.com/)
+3. *expo*: Para ejecutar la app en dispositivos iOS.[La página oficial](https://expo.io/)
 
 ## Instalación de expo
 
@@ -36,10 +39,8 @@ Además, es necesario contar con la [App Expo en iOS](https://apps.apple.com/us/
 
 ## Para ejecutar la app
 
-Una vez montado el **Django Server** y haber extraído **ngrok**, en una terminal, dirigirse a la carpeta en donde se extrajo **ngrok** y ejecutar: 
+Una vez montado el **Django Server**, haber extraído **ngrok** y haber ingresado el token respectivo, en una terminal, dirigirse a la carpeta en donde se extrajo **ngrok** y ejecutar: 
 ```bash
-$ ./ngrok authtoken 1cdpsXS22xsx76Ii4kR0eDA9sda_4TFoP11xkwJzGntqK5kTN
-# Esto proporciona acceso a los servicios de ngrok
 $ ./ngrok http 8000 #8000 es el puerto por defecto de DJANGO. 
           # Si se especificó otro, ponerlo aqui.
 ```
@@ -73,4 +74,4 @@ Luego, en otra consola, navegar hacia la carpeta de la aplicacion y ejecutar:
   yarn install
   yarn start
  ```
- En el iphone, abrir la cámara, escanear el código QR que se muestra en la consola y abrirlo con Expo mostrará la aplicación funcionando.
+ En el iPhone, abrir la cámara, escanear el código QR que se muestra en la consola y abrirlo con Expo mostrará la aplicación funcionando.
