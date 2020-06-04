@@ -10,6 +10,8 @@ Este proyecto fue creado con expo, pensado para ser ejecutado en iPhones con al 
 
 ## Requisitos
 
+**Importante** primero tener el Django server corriendo localmente: [ver el repositorio del Django server](https://github.com/marcofuentes05/duckingmovies-django)
+
 1. *React Native*: Tener instalada la última versin de [React Native](https://reactnative.dev/)
 1. *Node.js*: Tener instalada la última versión de [Node.js](https://nodejs.org/es/download/)
 2. *ngrok*: Para conectarse al servidor usando HTTPS. [Favor de ver el paso a paso](https://ngrok.com/)
