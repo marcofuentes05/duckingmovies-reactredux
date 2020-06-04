@@ -84,8 +84,7 @@ export const isFetchingVideogames = state => videogamesSelectors.isFetchingVideo
 export const getVideogameError = state => videogamesSelectors.getVideogameError(state.videogames);
 
 // developers selectors
-export const getDeveloper = (state, id) => developersSelectors.getDeveloper(state.developers, id);
-export const getDevelopers = state => developersSelectors.getDevelopers(state.developers);
+export const getDeveloper = (state) => developersSelectors.getDeveloper(state.developers);
 export const isFetchingDevelopers = state => developersSelectors.isFetchingDevelopers(state.developers);
 export const getDeveloperError = state => developersSelectors.getDeveloperError(state.developers);
 

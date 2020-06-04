@@ -16,6 +16,8 @@ import * as actions from '../../actions/comments';
 import * as awardActions from '../../actions/awards';
 import * as actorActions from '../../actions/actors';
 import * as directorActions from '../../actions/directors';
+import * as consoleActions from '../../actions/consoles';
+import * as developerActions from '../../actions/developers';
 import * as selectors from '../../reducers';
 import Emoji from 'react-native-emoji';
 import MovieComments from '../MovieComments'
@@ -150,18 +152,22 @@ const ItemDetail = ({item ,
                         sActors,
                         mDirector,
                         sDirector ,
+                        consoles ,
+                        devIsFetching,
+                        dev, 
                         loadMovieAwards ,
                         loadSerieAwards , 
                         loadMovieActors , 
                         loadSerieActors , 
                         loadMovieDirector,
                         loadSerieDirector,
+                        loadConsole ,
+                        loadGameDeveloper,
                     }) => {
     if (item.type === 'Serie'){
         useEffect(() => loadSerieAwards(), [])
         useEffect(() => loadSerieActors(), [])
         useEffect(() => loadSerieDirector(), [])
-
         return(
             <ScrollView
                 scrollEnabled={true}
@@ -190,8 +196,8 @@ const ItemDetail = ({item ,
                 resetScrollToCoords={{ x: 0, y: 0 }}>
                 <Image source={{ uri: item.imageUrl }} style={styles.background} />
                 <Text style={styles.title}> {item.name} </Text>
-                {(!mAwards.isFetching) ? (<Text style={styles.award}> {'Premios: \n'} {mAwards.map(value => (<Text style={styles.award}>{value.name + ' en ' + value.year} <Emoji name='sports_medal' style={styles.award} /> {'\n'} </Text>))} </Text>) : (<Text style={styles.award}></Text>)}
-                {((!mActors.isFetching) ? (<Text style={styles.award}> {'Actores de la pelicula: \n'} {mActors.map(value => (<Text style={styles.award}>{value.name + ' ' + value.lastName + '\n'} </Text>))} </Text>) : <Text style={styles.award}>Cargando...</Text>)}
+                {(!mAwards.isFetching) ? (<Text style={styles.award}> {'Premios: \n'} {mAwards.map((value , key) => (<Text style={styles.award} key = {id}>{value.name + ' en ' + value.year} <Emoji name='sports_medal' style={styles.award} /> {'\n'} </Text>))} </Text>) : (<Text style={styles.award}></Text>)}
+                {((!mActors.isFetching) ? (<Text style={styles.award}> {'Actores de la pelicula: \n'} {mActors.map((value , key) => (<Text style={styles.award} key = {id}>{value.name + ' ' + value.lastName + '\n'} </Text>))} </Text>) : <Text style={styles.award}>Cargando...</Text>)}
                 {((mDirector.isFetching) ? (<Text style={styles.award}>Cargando...</Text>) : (<Text style={styles.award}> <Emoji name={'movie_camera'} /> Director: {mDirector.name + ' ' + mDirector.lastName + '\n'}</Text>))}
                 <Text style={styles.classification}> {`Clasificación: ${item.classification}`}{'\n'}</Text>
                 <Text style={styles.rating}>{`Rating: ${parseInt(item.rating)} `}<Emoji name='duck' style={styles.rating} /> {'\n'}</Text>
@@ -200,6 +206,9 @@ const ItemDetail = ({item ,
             </ScrollView>
         )
     }else if (item.type === 'Videogame' || item.type === 'Juego'){
+        useEffect(() => loadConsole() , [])
+        useEffect(() => loadGameDeveloper() , [])
+        console.log(dev)
         return(
             <ScrollView
                 scrollEnabled={true}
@@ -209,6 +218,8 @@ const ItemDetail = ({item ,
                 <Text style={styles.title}> {item.title} </Text>
                 <Text style={styles.classification}> {`Clasificación: ${item.classification}`}{'\n'}</Text>
                 <Text style={styles.rating}>{`Rating: ${parseInt(item.rating)} `}<Emoji name='duck' style={styles.rating} /> {'\n'}</Text>
+                {((!consoles.isFetching) ? (<Text style={styles.award}> {'Disponible en: \n'} {consoles.map((value , id) => (<Text style={styles.award} key = {id}> <Emoji name = {'video_game'}/> {value.name+ '\n'} </Text>))} </Text>) : <Text style={styles.award}>Cargando...</Text>)}
+                {((devIsFetching) ? (<Text style={styles.award}>Cargando...</Text>) : ( <Text style = {styles.award}> Desarrollado por: {dev.name + '\n'}</Text> )   )  }
                 <GameComments />
                 <EsteSiesForm />
             </ScrollView>
@@ -227,6 +238,9 @@ export default connect(
         sActors: selectors.getSerieActors(state),
         mDirector : selectors.getMovieDirector(state),
         sDirector : selectors.getSerieDirector(state),
+        consoles : selectors.getConsoles(state),
+        devIsFetching : selectors.isFetchingDevelopers(state),
+        dev : selectors.getDeveloper(state)
     }),
     dispatch => ({
         loadMovieAwards(){
@@ -246,7 +260,12 @@ export default connect(
         },
         loadSerieDirector(){
             dispatch(directorActions.startFetchingSerieDirector())
-        }
-
+        },
+        loadConsole(){
+            dispatch (consoleActions.startFetchingConsoles())
+        },
+        loadGameDeveloper(){
+            dispatch (developerActions.startFetchingDeveloper())
+        },
     }),
 )(ItemDetail)

@@ -58,7 +58,6 @@ const renderRatingPicker = ({input:{onChange, value, ...restInput}}) => (
     <Picker.Item label="4" value={4.0}/>
     <Picker.Item label="3" value={3.0}/>
     <Picker.Item label="2" value={2.0}/>
-    <Picker.Item label="1" value={1.0}/>
   </Picker>
 );
 
@@ -69,7 +68,7 @@ const ViewAllPage = ({series, peliculas, juegos, handleSubmit, navigation, categ
       <View style={styles.textContainer}>
         <Text style={styles.textCategoria}>Categoria</Text>
         <Text style={styles.textGenero}>Género</Text>
-        <Text style={styles.textRating}>Rating</Text>
+        <Text style={styles.textRating}>Max. Rating</Text>
       </View>
       <View style={styles.pickerContainer}>
         <Field
@@ -88,7 +87,7 @@ const ViewAllPage = ({series, peliculas, juegos, handleSubmit, navigation, categ
       <TouchableOpacity style={styles.searchButton} onPress={handleSubmit}>
         <Emoji name='mag' style={styles.emoji}/>
       </TouchableOpacity>
-      <ScrollView style={{marginBottom:140,}}>
+      <ScrollView style={{marginBottom:140, }}>
         {category.category=="Movies" ? (
           peliculas.map((pelicula, id) => {
             return <ItemContainer type={'Movie'} item={pelicula} key={id} clas={pelicula.classification} nombre={pelicula.name} rating={pelicula.rating} imageUrl={pelicula.imageUrl} navigation={navigation} />
@@ -204,7 +203,7 @@ const styles = StyleSheet.create({
     textDecorationLine: "underline",
   },
   textRating:{
-    marginLeft:20,
+    marginLeft:5,
     marginRight:18,
     fontSize:21,
     marginTop:10,
@@ -213,6 +212,7 @@ const styles = StyleSheet.create({
     textDecorationLine: "underline",
   },
   container:{
+    // flex : 1,
     display:"flex",
     flexDirection:"column",
     backgroundColor:'black',

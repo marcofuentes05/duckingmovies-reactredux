@@ -1,4 +1,4 @@
-import * as types from './types/consoles';
+import * as types from '../types/consoles';
 
 export const startFetchingConsoles = () => ({
   type: types.FETCH_CONSOLES_STARTED,

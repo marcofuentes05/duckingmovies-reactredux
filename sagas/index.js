@@ -21,7 +21,8 @@ import { watchFetchSearchSeriesStarted } from './searchSeries';
 import { watchFetchSearchVideogamesStarted } from './searchVideogames';
 import { watchGetMovieDirectorStarted } from './movieDirectors';
 import { watchGetSerieDirectorStarted } from './serieDirectors';
-
+import { watchGetConsolesStarted } from './consoles';
+import { watchFetchGameDeveloperStarted} from './gameDeveloper';
 
 function* mainSaga() {
     yield all([
@@ -46,6 +47,8 @@ function* mainSaga() {
         fork(watchFetchSearchVideogamesStarted),
         fork(watchGetMovieDirectorStarted),
         fork(watchGetSerieDirectorStarted),
+        fork(watchGetConsolesStarted),
+        fork(watchFetchGameDeveloperStarted),
     ]);
 }
 

@@ -1,19 +1,17 @@
-import * as types from './types/developers';
+import * as types from '../types/developers';
 
-export const startFetchingDevelopers = () => ({
-  type: types.FETCH_DEVELOPERS_STARTED,
+export const startFetchingDeveloper = () => ({
+  type: types.FETCH_DEVELOPER_STARTED,
 });
 
-export const completeFetchingDevelopers = (entities, order) => ({
-  type: types.FETCH_DEVELOPERS_COMPLETED,
-  payload: {
-    entities,
-    order,
-  }
+export const completeFetchingDeveloper = (entities) => ({
+  type: types.FETCH_DEVELOPER_COMPLETED,
+  payload: entities
+  
 });
 
-export const failFetchingDevelopers = error => ({
-  type: types.FETCH_DEVELOPERS_FAILED,
+export const failFetchingDeveloper = error => ({
+  type: types.FETCH_DEVELOPER_FAILED,
   payload: {
     error,
   }

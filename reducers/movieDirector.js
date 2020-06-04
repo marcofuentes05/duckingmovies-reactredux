@@ -4,17 +4,17 @@ import * as types from '../types/directors';
 
 const director = (state = {}, action) => {
     switch (action.type) {
-        case types.FETCH_SERIE_DIRECTOR_COMPLETED: {
-            let newState = state;
-            newState = action.payload
-            return newState;
+        case types.FETCH_MOVIE_DIRECTOR_COMPLETED: {
+            return action.payload;
+        }
+        case types.FETCH_MOVIE_DIRECTOR_STARTED: {
+            return {};
         }
         default: {
             return state;
         }
-    }
+    } 
 };
-
 
 const isFetching = (state = false, action) => {
     switch (action.type) {
