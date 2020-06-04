@@ -15,7 +15,6 @@ import Emoji from 'react-native-emoji';
 
 
 const Buttons = ({ isAuthenticated , logout , navigation} ) => {
-    useEffect(() => logout() , [])
     isAuthenticated && navigation.navigate('MainPage')
     return (
         <View style = {styles.container}>
