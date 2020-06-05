@@ -4,6 +4,9 @@
 
 <h5 align = center>Desarrollado por Marco Fuentes y Andy Castillo, utilizando React Native, expo, ngrok</h5>
 
+## Video de demo [en este link](https://youtu.be/1c_gpvv3wx8)
+
+
 ## Creación del proyecto
 
 Este proyecto fue creado con expo, pensado para ser ejecutado en iPhones con al menos iOS 10.0
